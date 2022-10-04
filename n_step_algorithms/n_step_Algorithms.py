@@ -1,7 +1,7 @@
 # @Time    : 2022/10/4 14:46
 # @Author  : Xingyu Rao
 # @Email   : x.rao@tu-braunschweig.de
-# @File    : n-step-Algorithms.py
+# @File    : n_step_Algorithms.py
 # @Software: PyCharm
 
 # %%
@@ -68,7 +68,7 @@ def outlier_delete(y):
     while n < np.size(y):
         if y[n] < q1 - 3 * iqr or y[n] > q3 + 3 * iqr:
             y[n] = None
-            # n_list.append(n)
+
             n += 1
         else:
             n += 1
