@@ -39,11 +39,11 @@ def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=1000
         get_value[loo_p] = np.arctan(-(upper / lower))
 
     std = np.std(get_value, axis=0)
+    # return the monte-carlo results and their standard deviation
     return get_value, std * factor
 
 
-# %%
-
+# %% get the theoretical standard deviation
 def n_Step_theoretical_std(step=3, phase=(0, 2 * np.pi), point_number=720, lamda=530, mu_phase=0.1 * np.pi / 180,
                            wx1=0):
     factor = lamda / (4 * np.pi)
@@ -54,11 +54,10 @@ def n_Step_theoretical_std(step=3, phase=(0, 2 * np.pi), point_number=720, lamda
         wXn = 2 * np.pi * (n - 1) / N + wx1
         A += ((np.sin(wXn + phase)) ** 2 * (2 / N)) ** 2
     std = np.sqrt(A) * mu_phase * factor
+    # return theoretical standard deviation
     return std
 
-    # %%
-
-
+# %%
 def outlier_delete(y):
     y = np.array(y)
     q1 = np.percentile(y, 25)
@@ -74,10 +73,7 @@ def outlier_delete(y):
         else:
             n += 1
 
-    # y = np.delete(y, n_list)
-
     return y
-
 
 # %% subtract the point with equally spaced intervals
 def sub_point(y, n):
