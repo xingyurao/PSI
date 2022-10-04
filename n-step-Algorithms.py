@@ -7,13 +7,10 @@
 # %%
 import numpy as np
 
-
 # %%
 # create random number
 def gauss_random(mu):
     return np.random.normal(0, mu)
-
-
 
 # %%
 # get the std of positioning noise
