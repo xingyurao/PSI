@@ -46,10 +46,16 @@ plt.savefig('Images/comparison with different sampling frequency', bbox_inches='
 plt.show(block=True)
 
 # %%
-x = np.append(np.array(3), np.arange(4, 50, 1))  # different steps
+x = np.append(np.array(3), np.arange(4, 100, 2))  # different steps
 y = np.array([])  # std respectively
+phase_interval = (0, np.pi * 2)
 for N in x:
     _, m_std = n_step_single_line(step=N, phase=phase_interval)
     m_std_outlier = outlier_delete(m_std)
-    m_std_average = np.average(m_std_outlier)
+    m_std_average = np.nanmean(m_std_outlier)
     y = np.append(y, [m_std_average])
+#%%
+plt.figure()
+plt.style.use('scientific')
+plt.semilogx(x, y, color='red')
+plt.show(block=1)
