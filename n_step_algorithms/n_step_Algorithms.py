@@ -23,9 +23,6 @@ def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=1000
     get_value = np.zeros([loop, point_number])
     phase_interval = np.linspace(phase[0], phase[1], point_number)
     for loo_p in np.arange(0, loop, 1):
-        # get the velocity of programm
-        if loo_p % (loop / 10) == 0:
-            print(loo_p)
 
         upper = np.zeros([point_number])
         lower = np.zeros([point_number])
