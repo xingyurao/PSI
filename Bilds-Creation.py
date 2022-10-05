@@ -46,7 +46,7 @@ plt.savefig('Images/comparison with different sampling frequency', bbox_inches='
 plt.show(block=True)
 
 # %%
-x = np.append(np.array(3), np.arange(4, 100, 10))  # different steps
+x = np.append(np.array(3), np.arange(5, 100, 10))  # different steps
 y = np.array([])  # std respectively
 phase_interval = (0, np.pi * 2)
 for N in x:
@@ -55,13 +55,19 @@ for N in x:
     m_std_outlier = outlier_delete(m_std)
     m_std_average = np.nanmean(m_std_outlier)
     y = np.append(y, [m_std_average])
-#%%
+# %%
+mu_phase=0.1 * np.pi / 180
+factor = 530 / (4 * np.pi)
+x_combined=np.append(np.array(3), np.arange(5, 100, 1))
 plt.figure()
 plt.style.use('scientific')
-plt.semilogx(x, y, 'o', color='blue')
-plt.semilogx(x,np.sqrt(3/2/x),'k-')
+plt.scatter(x, y, color='blue', marker='o', label='monte-carlo method', edgecolors='blue')
+plt.loglog(x_combined, np.sqrt(3 / (2 * x_combined))*mu_phase*factor, 'k-', label='combined uncertainty')
 plt.xlabel('number of sampling points N')
 plt.ylabel('standard deviation, nm')
 plt.title('standard deviation vs number of sampling points')
+plt.legend(loc='upper right')
+plt.xlim(2,200)
 plt.tight_layout()
+plt.savefig('Images/standard deviation vs number of sampling points', bbox_inches='tight')
 plt.show(block=1)
