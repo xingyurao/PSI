@@ -54,6 +54,7 @@ def n_Step_theoretical_std(step=3, phase=(0, 2 * np.pi), point_number=720, lamda
     # return theoretical standard deviation
     return std
 
+
 # %%
 def outlier_delete(y):
     y = np.array(y)
@@ -71,6 +72,7 @@ def outlier_delete(y):
             n += 1
 
     return y
+
 
 # %% subtract the point with equally spaced intervals
 def sub_point(y, n):
