@@ -18,6 +18,7 @@ def gauss_random(mu):
 def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=720, loop=100000,
              mu_phase=0.1 * np.pi / 180,
              wx1: float = .0, a=0, b=1, lamda=530):
+    print('the current step:', step)
     N = step
     M = over_sample_points
     factor = lamda / (4 * np.pi)
@@ -32,13 +33,13 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
         for i in np.arange(0, N + M, 1):
             noise[i] = gauss_random(mu_phase)
 
-        upper_1 = np.zeros([N])
-        upper_2 = np.zeros([M])
-        upper_3 = np.zeros([M])
+        upper_1 = np.zeros([point_number])
+        upper_2 = np.zeros([point_number])
+        upper_3 = np.zeros([point_number])
 
-        lower_1 = np.zeros([N])
-        lower_2 = np.zeros([M])
-        lower_3 = np.zeros([M])
+        lower_1 = np.zeros([point_number])
+        lower_2 = np.zeros([point_number])
+        lower_3 = np.zeros([point_number])
 
         for n in np.arange(1, N + 1, 1):
             wXn = 2 * np.pi * (n - 1) / N + wx1
@@ -63,3 +64,24 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
     std = np.std(get_value, axis=0)
     # return the monte-carlo results and their standard deviation
     return get_value, std * factor
+
+
+# %%
+def outlier_delete(y):
+    y = np.array(y)
+    q1 = np.percentile(y, 25)
+    q3 = np.percentile(y, 75)
+    iqr = q3 - q1
+    n: int = 0
+    # n_list = []
+    while n < np.size(y):
+        if y[n] < q1 - 3 * iqr or y[n] > q3 + 3 * iqr:
+            y[n] = None
+
+            n += 1
+        else:
+            n += 1
+
+    return y
+
+
