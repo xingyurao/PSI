@@ -42,10 +42,10 @@ plt.xlim(0, 720)
 plt.xticks([0, 720 / 4, 720 / 2, 720 / 4 * 3, 720], [r'0', r'$\pi/2$', r'$\pi$', r'$3\pi/2$', r'$2\pi$'])
 plt.legend(loc='upper right')
 plt.tight_layout()
-plt.savefig('Images/comparison with different sampling frequency', bbox_inches='tight')
+#plt.savefig('Images/comparison with different sampling frequency', bbox_inches='tight')
 plt.show(block=True)
 
-# %%
+# %% standard deviation vs number of sampling points
 x = np.append(np.array(3), np.arange(5, 100, 10))  # different steps
 y = np.array([])  # std respectively
 phase_interval = (0, np.pi * 2)
@@ -55,7 +55,6 @@ for N in x:
     m_std_outlier = outlier_delete(m_std)
     m_std_average = np.nanmean(m_std_outlier)
     y = np.append(y, [m_std_average])
-# %%
 mu_phase=0.1 * np.pi / 180
 factor = 530 / (4 * np.pi)
 x_combined=np.append(np.array(3), np.arange(5, 100, 1))
@@ -70,5 +69,5 @@ plt.title('standard deviation vs number of sampling points')
 plt.legend(loc='upper right')
 plt.xlim(2,200)
 plt.tight_layout()
-plt.savefig('Images/standard deviation vs number of sampling points', bbox_inches='tight')
+# plt.savefig('Images/standard deviation vs number of sampling points', bbox_inches='tight')
 plt.show(block=1)
