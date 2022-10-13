@@ -66,22 +66,6 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
     return get_value, std * factor
 
 
-# %%
-def outlier_delete(y):
-    y = np.array(y)
-    q1 = np.percentile(y, 25)
-    q3 = np.percentile(y, 75)
-    iqr = q3 - q1
-    n: int = 0
-    # n_list = []
-    while n < np.size(y):
-        if y[n] < q1 - 3 * iqr or y[n] > q3 + 3 * iqr:
-            y[n] = None
 
-            n += 1
-        else:
-            n += 1
-
-    return y
 
 

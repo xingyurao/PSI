@@ -7,6 +7,7 @@
 # create bild of comparison with different steps
 import matplotlib.pyplot as plt
 from PSI_algorithms.N_Step import *
+from PSI_algorithms.Data_Process import *
 import numpy as np
 
 # %% comparison with different sampling frequency
