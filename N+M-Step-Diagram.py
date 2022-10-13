@@ -14,9 +14,15 @@ M = np.arange(0, N + 1, 1)
 plt.style.use('scientific')
 plt.figure()
 for i in M:
-    _, std = N_M_step(step=N, over_sample_points=i)
+    _, std = N_M_step(step=N, over_sample_points=i, loop=100000)
     std_new = outlier_delete(std)
     plt.plot(std_new, label='M={}'.format(i))
+
+# get the theoretical value of N-sampling points
+get_value_N= n_Step_theoretical_std(N)
+get_value_2N= n_Step_theoretical_std(2 * N)
+plt.plot(get_value_N,'k--')
+plt.plot(get_value_2N,'k--')
 
 plt.xlabel('start phase')
 plt.ylabel('standard deviation, nm')
@@ -25,7 +31,7 @@ plt.xticks([0, 720 / 4, 720 / 2, 720 / 4 * 3, 720], [r'0', r'$\pi/2$', r'$\pi$',
 plt.legend(loc='upper right')
 plt.title('comparison with {}+M sampling points'.format(N))
 plt.tight_layout()
-# plt.savefig('Images/comparison with {}+M sampling points'.format(N), bbox_inches='tight')
+plt.savefig('Images/comparison with {}+M sampling points'.format(N), bbox_inches='tight')
 plt.show(block=1)
 
 # %% comparison between 2N sampling points and N+N sampling points
@@ -52,5 +58,5 @@ plt.xlim(5, 30)
 plt.legend(loc='upper right')
 plt.title('comparison between 2N and N+N sampling points')
 plt.tight_layout()
-plt.savefig('Images/comparison between 2N sampling points and N+N sampling points', bbox_inches='tight')
+# plt.savefig('Images/comparison between 2N sampling points and N+N sampling points', bbox_inches='tight')
 plt.show(block=1)
