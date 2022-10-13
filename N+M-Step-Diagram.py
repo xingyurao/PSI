@@ -44,7 +44,7 @@ plt.figure()
 
 plt.loglog(N * 2, std_2N, 'k-', label='2N sampling points')
 plt.scatter(N * 2, std_NN, color='blue', label='N+N sampling points', edgecolors='blue')
-plt.xlabel('number of sampling points')
+plt.xlabel('number of sampling points (2N)')
 plt.ylabel('standard deviation, nm')
 
 plt.xticks([6, 10, 12, 14, 16, 18, 20], [r'$6$', r'$10$', r'$12$', r'$14$', r'$16$', r'$18$', r'$20$'])
