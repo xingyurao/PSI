@@ -1,7 +1,7 @@
 # @Time    : 2022/10/4 14:46
 # @Author  : Xingyu Rao
 # @Email   : x.rao@tu-braunschweig.de
-# @File    : n_step_Algorithms.py
+# @File    : N_Step.py
 # @Software: PyCharm
 
 # %%
@@ -18,6 +18,7 @@ def gauss_random(mu):
 # get the std of positioning noise
 def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=0.1 * np.pi / 180,
                        wx1: float = .0, a=0, b=1, lamda=530):
+    print('the current step:', step)
     N = step
     factor = lamda / (4 * np.pi)
     get_value = np.zeros([loop, point_number])

@@ -1,12 +1,12 @@
 # @Time    : 2022/10/4 16:05
 # @Author  : Xingyu Rao
 # @Email   : x.rao@tu-braunschweig.de
-# @File    : Bilds-Creation.py
+# @File    : N-Step-Diagram.py
 # @Software: PyCharm
 
 # create bild of comparison with different steps
 import matplotlib.pyplot as plt
-from n_step_algorithms.n_step_Algorithms import *
+from PSI_algorithms.N_Step import *
 import numpy as np
 
 # %% comparison with different sampling frequency

@@ -1,7 +1,7 @@
 # @Time    : 2022/10/12 22:10
 # @Author  : Xingyu Rao
 # @Email   : x.rao@tu-braunschweig.de
-# @File    : N+M_step.py
+# @File    : N_plus_M_Step.py
 # @Software: PyCharm
 # %%
 import numpy as np
@@ -18,7 +18,7 @@ def gauss_random(mu):
 def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=720, loop=100000,
              mu_phase=0.1 * np.pi / 180,
              wx1: float = .0, a=0, b=1, lamda=530):
-    print('the current step:', step)
+    print('the current step:', step, '\n','the current over sampling points:', over_sample_points)
     N = step
     M = over_sample_points
     factor = lamda / (4 * np.pi)
