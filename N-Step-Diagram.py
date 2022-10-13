@@ -51,7 +51,6 @@ x = np.append(np.array(3), np.arange(5, 100, 10))  # different steps
 y = np.array([])  # std respectively
 phase_interval = (0, np.pi * 2)
 for N in x:
-    print(N)
     _, m_std = n_step_single_line(step=N, phase=phase_interval)
     m_std_outlier = outlier_delete(m_std)
     m_std_average = np.nanmean(m_std_outlier)
