@@ -6,7 +6,7 @@
 # %%
 import numpy as np
 from scipy.optimize import root
-import matplotlib.pyplot as plt
+from Data_Process import value_suit
 
 
 # %%
@@ -18,7 +18,7 @@ def gauss_random(mu):
 # %%
 def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point_number=720, loop=100000,
                           mu_phase=0.1 * np.pi / 180,
-                          wx1: float = .0, a=120, b=1.4, lamda=530):
+                          wx1: float = .0, a=120, b=140, lamda=530):
     N = step
     factor = lamda / (4 * np.pi)
     get_value = np.zeros([loop, point_number])
@@ -36,12 +36,12 @@ def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point
 
     def func(x, *args):  # here i comes from points number
         y = []
-        for n in np.arange(1, number_sampling+1, 1):
+        for n in np.arange(1, number_sampling + 1, 1):
             wXn = 2 * np.pi * (n - 1) / N + wx1
             y.append(x[0] + x[1] * np.cos(wXn + x[2]) - S[n - 1, args[0]])
         return y
 
-    def jacob(x,*args):
+    def jacob(x, *args):
 
         mat = np.zeros([3, 3])
         for n in np.arange(0, number_sampling, 1):
@@ -56,7 +56,7 @@ def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point
     get_a = np.zeros([point_number])
     get_b = np.zeros([point_number])
     for j in np.arange(0, point_number, 1):
-        x = root(func, args=(j), x0=np.array([0, 0, np.pi/2]), jac=jacob).x
+        x = root(func, args=(j), x0=np.array([0, 0, np.pi / 2]), jac=jacob).x
         get_a[j] = x[0]
         get_b[j] = x[1]
         get_phase[j] = x[2]
@@ -65,15 +65,7 @@ def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point
 
 a, b, theta = three_Sampling_Points(step=3)
 
-plt.figure()
-plt.subplot(311)
-plt.plot(a)
-
-plt.subplot(312)
-plt.plot(b)
-
-plt.subplot(313)
-plt.plot(theta)
-
-plt.show(block=1)
-
+a_new = value_suit(a)
+b_new = value_suit(b)
+print(a_new)
+print(b_new)
