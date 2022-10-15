@@ -16,7 +16,7 @@ def gauss_random(mu):
 
 
 # %%
-def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point_number=720, loop=10,
+def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point_number=720, loop=20,
                           mu_phase=0.1 * np.pi / 180,
                           wx1: float = .0, a=120, b=140, lamda=530):
     N = step
@@ -91,7 +91,7 @@ def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point
     return get_value * factor, std * factor
 
 
-data, std = three_Sampling_Points(step=3, phase=(0, 2 * np.pi), point_number=720)
+data, std = three_Sampling_Points(step=8, phase=(0, 2 * np.pi), point_number=720)
 
 std_new = outlier_delete(std)
 # %%
@@ -99,7 +99,7 @@ import matplotlib.pyplot as plt
 
 plt.figure()
 plt.subplot(211)
-plt.plot(data[1])
+plt.plot(data[1]-data[0])
 # plt.plot(np.arange(0, 720, 1), np.linspace(0, np.pi * 2, 720) * 530 / (4 * np.pi))
 plt.subplot(212)
 plt.plot(std_new)
