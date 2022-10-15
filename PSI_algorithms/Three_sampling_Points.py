@@ -82,8 +82,7 @@ def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point
         for i in np.arange(0, point_number, 1):
             p = np.sort((phase_try[:, :, i]).reshape((1, phase_try.shape[0] * phase_try.shape[1])))
 
-
-            get_phase[i] = phase_choose(p,number_sampling)
+            get_phase[i] = phase_choose(p, number_sampling)
 
         get_value[loo] = get_phase
 
@@ -92,7 +91,7 @@ def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point
     return get_value * factor, std * factor
 
 
-data, std = three_Sampling_Points(step=3, phase=(0,2*np.pi),point_number=720)
+data, std = three_Sampling_Points(step=3, phase=(0, 2 * np.pi), point_number=720)
 
 std_new = outlier_delete(std)
 # %%
@@ -101,7 +100,7 @@ import matplotlib.pyplot as plt
 plt.figure()
 plt.subplot(211)
 plt.plot(data[1])
-#plt.plot(np.arange(0, 720, 1), np.linspace(0, np.pi * 2, 720) * 530 / (4 * np.pi))
+# plt.plot(np.arange(0, 720, 1), np.linspace(0, np.pi * 2, 720) * 530 / (4 * np.pi))
 plt.subplot(212)
 plt.plot(std_new)
 plt.show(block=1)
