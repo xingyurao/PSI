@@ -6,7 +6,7 @@
 # %%
 import numpy as np
 from scipy.optimize import root
-from Data_Process import value_suit, outlier_delete
+from Data_Process import value_suit, outlier_delete, phase_choose
 
 
 # %%
@@ -53,7 +53,6 @@ def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point
                 # mat[n,:] = np.array([[1, np.cos(wXn + x[2]), -x[1] * np.sin(wXn + x[2])]])
             return np.mat(mat)
 
-        get_phase = np.zeros([point_number])
         get_a = np.zeros([point_number])
         get_b = np.zeros([point_number])
         for j in np.arange(0, point_number, 1):
@@ -63,8 +62,10 @@ def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point
 
         a_value = value_suit(get_a)
         b_value = value_suit(get_b)
-        get_phase = np.zeros([number_sampling, point_number])
-        for n in np.arange(0, number_sampling, 1):
+
+        get_phase = np.zeros([point_number])  # 720 x 3
+        phase_try = np.zeros([2, number_sampling, point_number])  # 2 x 3 x 720
+        for n in np.arange(0, number_sampling, 1):  # 0 1 2
             wXn = 2 * np.pi * (n - 1) / N + wx1
 
             inner = (S[n] - a_value) / b_value
@@ -75,20 +76,32 @@ def three_Sampling_Points(step=3, number_sampling=3, phase=(0, 2 * np.pi), point
                 elif inner[i] <= -1:
                     inner[i] = -1
 
-            get_phase[n] = np.arccos(inner) - wXn
-        get_value[loo] = np.average(get_phase, 0)
+            # test
+            phase_try[:, n, :] = (np.array([[(np.arccos(inner) - wXn), (-np.arccos(inner) - wXn)]]))
+
+        for i in np.arange(0, point_number, 1):
+            p = np.sort((phase_try[:, :, i]).reshape((1, phase_try.shape[0] * phase_try.shape[1])))
+
+
+            get_phase[i] = phase_choose(p,number_sampling)
+
+        get_value[loo] = get_phase
 
     std = np.std(get_value, axis=0)
     # return the monte-carlo results and their standard deviation
-    return get_value, std * factor
+    return get_value * factor, std * factor
 
 
-_, std = three_Sampling_Points(step=3)
+data, std = three_Sampling_Points(step=3, phase=(0,2*np.pi),point_number=720)
 
 std_new = outlier_delete(std)
 # %%
 import matplotlib.pyplot as plt
 
 plt.figure()
+plt.subplot(211)
+plt.plot(data[1])
+#plt.plot(np.arange(0, 720, 1), np.linspace(0, np.pi * 2, 720) * 530 / (4 * np.pi))
+plt.subplot(212)
 plt.plot(std_new)
 plt.show(block=1)

@@ -52,8 +52,18 @@ def value_suit(data):
             index = i + 1
             break
     if index >= (np.size(data) // 2):
-        data = data[np.size(data)//4:index//4 * 3]
+        data = data[np.size(data) // 4:index // 4 * 3]
     else:
-        data = data[(index + 1)+(np.size(data)-index)//4:np.size(data)//4 * 3]
+        data = data[(index + 1) + (np.size(data) - index) // 4:np.size(data) // 4 * 3]
 
     return np.average(data)
+
+
+# %%
+def phase_choose(data, n):
+    data=np.sort(np.abs(data))
+    std = []
+    for j in np.arange(0, np.size(data) - n, 1):
+        std.append(np.std(data[0,j:j + n]))
+    index = std.index(min(std))
+    return np.average(data[0,index:index + n])
