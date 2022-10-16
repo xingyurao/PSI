@@ -77,12 +77,12 @@ plt.show(block=1)
 n = [3, 4, 8, 20]
 for i in n:
     Form, _ = n_step_single_line(step=i)
-
+    Form_free, _ = n_step_single_line(step=i, mu_phase=0,loop=1)
     plt.style.use('scientific')
     plt.figure()
-    plt.plot(outlier_delete(Form[0] - np.average(Form, 0)), label='measurement 1')
-    plt.plot(outlier_delete(Form[1] - np.average(Form, 0)), label='measurement 2')
-    plt.plot(outlier_delete(Form[2] - np.average(Form, 0)), label='measurement 3')
+    plt.plot(outlier_delete(Form[0] - Form_free[0]), label='measurement 1')
+    plt.plot(outlier_delete(Form[1] - Form_free[0]), label='measurement 2')
+    plt.plot(outlier_delete(Form[2] - Form_free[0]), label='measurement 3')
 
     plt.title('form error for {}-step algorithms'.format(i))
     plt.xlabel('start phase')
@@ -98,12 +98,13 @@ for i in n:
 n = [3, 4, 8]
 for i in n:
     Form, std = three_Sampling_Points(step=i)
-    std_new = outlier_delete(std)
+    Form_free, _=three_Sampling_Points(step=i, mu_phase=0)
+
     plt.style.use('scientific')
     plt.figure()
-    plt.plot(outlier_delete(Form[0] - np.average(Form, 0)), label='measurement 1')
-    plt.plot(outlier_delete(Form[1] - np.average(Form, 0)), label='measurement 2')
-    plt.plot(outlier_delete(Form[2] - np.average(Form, 0)), label='measurement 3')
+    plt.plot(outlier_delete(Form[0] - Form_free[0]), label='measurement 1')
+    plt.plot(outlier_delete(Form[1] - Form_free[0]), label='measurement 2')
+    plt.plot(outlier_delete(Form[2] - Form_free[0]), label='measurement 3')
 
     plt.title('form error for non-linear algorithms(sampling frequency={})'.format(i))
     plt.xlabel('start phase')
