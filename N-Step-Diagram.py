@@ -102,9 +102,9 @@ for i in n:
 
     plt.style.use('scientific')
     plt.figure()
-    plt.plot(outlier_delete(Form[0] - Form_free[0]), label='measurement 1')
-    plt.plot(outlier_delete(Form[1] - Form_free[0]), label='measurement 2')
-    plt.plot(outlier_delete(Form[2] - Form_free[0]), label='measurement 3')
+    plt.plot((Form[0] - Form_free[0]), label='measurement 1')
+    plt.plot((Form[1] - Form_free[0]), label='measurement 2')
+    plt.plot((Form[2] - Form_free[0]), label='measurement 3')
 
     plt.title('form error for non-linear algorithms(sampling frequency={})'.format(i))
     plt.xlabel('start phase')
