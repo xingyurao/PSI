@@ -17,8 +17,18 @@ def gauss_random(mu):
 # %%
 # get the std of positioning noise
 def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=0.1 * np.pi / 180,
-                       wx1: float = .0, a=0, b=1, lamda=530):
+                       wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
     print('the current step:', step)
+    if shot_noise is True:
+        mu_intensity = 0.001
+    else:
+        mu_intensity = 0
+
+    if position_noise is False:
+        mu_phase = 0
+    else:
+        mu_phase = mu_phase
+
     N = step
     factor = lamda / (4 * np.pi)
     get_value = np.zeros([loop, point_number])
@@ -31,8 +41,8 @@ def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=1000
         for n in np.arange(1, N + 1, 1):
             wXn = 2 * np.pi * (n - 1) / N + wx1
             noise = gauss_random(mu_phase)
-            upper += (a + b * np.cos(wXn + phase_interval + noise)) * np.sin(wXn)
-            lower += (a + b * np.cos(wXn + phase_interval + noise)) * np.cos(wXn)
+            upper += (a + b * np.cos(wXn + phase_interval + noise) + gauss_random(mu_intensity)) * np.sin(wXn)
+            lower += (a + b * np.cos(wXn + phase_interval + noise) + gauss_random(mu_intensity)) * np.cos(wXn)
 
         get_value[loo_p] = np.arctan(-(upper / lower))
 
@@ -54,4 +64,3 @@ def n_Step_theoretical_std(step=3, phase=(0, 2 * np.pi), point_number=720, lamda
     std = np.sqrt(A) * mu_phase * factor
     # return theoretical standard deviation
     return std
-
