@@ -52,8 +52,9 @@ def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=1000
 
 
 # %% get the theoretical standard deviation
-def n_Step_theoretical_std(step=3, phase=(0, 2 * np.pi), point_number=720, lamda=530, mu_phase=0.1 * np.pi / 180,
+def n_Step_theoretical_std(step=3, phase=(0, 2 * np.pi), point_number=720, lamda=530, mu_phase=0.1,
                            wx1=0, b=1, shot_noise=False, position_noise=True):
+    mu_phase = mu_phase * np.pi / 180
     if position_noise is True:
         factor = lamda / (4 * np.pi)
         N = step

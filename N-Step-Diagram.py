@@ -13,9 +13,10 @@ from PSI_algorithms.Three_sampling_Points import *
 
 # %% comparison with different sampling frequency
 phase_interval = (0, np.pi * 2)
-_, m_std_3 = n_step_single_line(step=3, phase=phase_interval, mu_phase=.1)
-_, m_std_4 = n_step_single_line(step=4, phase=phase_interval, mu_phase=.1)
-_, m_std_8 = n_step_single_line(step=8, phase=phase_interval, mu_phase=.1)
+phase_error=5
+_, m_std_3 = n_step_single_line(step=3, phase=phase_interval, mu_phase=phase_error)
+_, m_std_4 = n_step_single_line(step=4, phase=phase_interval, mu_phase=phase_error)
+_, m_std_8 = n_step_single_line(step=8, phase=phase_interval, mu_phase=phase_error)
 #_, m_std_20 = n_step_single_line(step=20, phase=phase_interval, mu_phase=.1)
 
 m_std_3 = outlier_delete(m_std_3)
@@ -26,13 +27,13 @@ m_std_8 = outlier_delete(m_std_8)
 fig = plt.figure()
 plt.style.use('scientific')
 plt.plot(m_std_3, label='3-sampling points', color='green')
-plt.plot(outlier_delete(n_Step_theoretical_std(step=3, mu_phase=.1)), 'k--')
+plt.plot(outlier_delete(n_Step_theoretical_std(step=3, mu_phase=phase_error)), 'k--')
 
 plt.plot(m_std_4, label='4-sampling points', color='blue')
-plt.plot(outlier_delete(n_Step_theoretical_std(step=4, mu_phase=.1)), 'k--')
+plt.plot(outlier_delete(n_Step_theoretical_std(step=4, mu_phase=phase_error)), 'k--')
 
 plt.plot(m_std_8, label='8-sampling points', color='red')
-plt.plot(outlier_delete(n_Step_theoretical_std(step=8, mu_phase=.1)), 'k--')
+plt.plot(outlier_delete(n_Step_theoretical_std(step=8, mu_phase=phase_error)), 'k--')
 
 #plt.plot(m_std_20, label='20-sampling points', color='yellow')
 #plt.plot(outlier_delete(n_Step_theoretical_std(step=20, mu_phase=.1)), 'k--')
