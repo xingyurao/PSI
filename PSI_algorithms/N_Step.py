@@ -48,7 +48,7 @@ def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=1000
 
     std = np.std(get_value, axis=0)
     # return the monte-carlo results and their standard deviation
-    return get_value, std * factor
+    return get_value * factor, std * factor
 
 
 # %% get the theoretical standard deviation
