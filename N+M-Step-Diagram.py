@@ -9,7 +9,7 @@ from PSI_algorithms.N_Step import *
 from PSI_algorithms.Data_Process import *
 
 # %% comparison with N+M sampling points
-N = 8
+N = 3
 M = np.arange(0, N + 1, 1)
 plt.style.use('scientific')
 plt.figure()
@@ -19,10 +19,10 @@ for i in M:
     plt.plot(std_new, label='M={}'.format(i))
 
 # get the theoretical value of N-sampling points
-get_value_N= n_Step_theoretical_std(N)
-get_value_2N= n_Step_theoretical_std(2 * N)
-plt.plot(get_value_N,'k--')
-plt.plot(get_value_2N,'k--')
+get_value_N = n_Step_theoretical_std(N)
+get_value_2N = n_Step_theoretical_std(2 * N)
+plt.plot(get_value_N, 'k--')
+plt.plot(get_value_2N, 'k--')
 
 plt.xlabel('start phase')
 plt.ylabel('standard deviation, nm')
@@ -59,4 +59,34 @@ plt.legend(loc='upper right')
 plt.title('comparison between 2N and N+N sampling points')
 plt.tight_layout()
 # plt.savefig('Images/comparison between 2N sampling points and N+N sampling points', bbox_inches='tight')
+plt.show(block=1)
+
+# %% comparison between different sampling frequencies
+# create 6+6 7+5 8+4...12+0 step
+All_step = 16
+x = np.arange(0, All_step / 2 + 1, 1)
+y = np.array([])
+yerr = np.array([])
+for i in np.arange(All_step / 2, All_step + 1, 1):
+    i = int(i)
+    std = N_M_theoretical_std(step=i, over_sample_points=All_step - i)
+    y = np.append(y, np.average(std))
+    yerr = np.append(yerr, np.max(std)-np.average(std))
+
+yerr[0]=np.nan
+yerr[-1]=np.nan
+plt.style.use('scientific')
+plt.figure()
+plt.errorbar(x, y, yerr, ecolor='k', elinewidth=1, marker='s', mfc='k', mec='k', mew=1, ms=5, alpha=1,
+             capsize=5, capthick=3, linestyle="none", label="Observation")
+
+p=np.polyfit(x,y,deg=4)
+plt.plot(np.linspace(0,All_step/2,100),np.polyval(p,np.linspace(0,All_step/2,100)),'grey')
+
+plt.xlabel('sampling methods')
+plt.xticks([0,1,2,3,4,5,6,7,8],['8+8','9+7','10+6','11+5','12+4','13+3','14+2','15+1','16+0'],rotation=45)
+plt.ylabel('standard deviation, nm')
+plt.title('comparison between different sampling frequencies')
+plt.tight_layout()
+plt.savefig('Images/Positioning Noise/STD/comparison between different sampling frequencies', bbox_inches='tight')
 plt.show(block=1)

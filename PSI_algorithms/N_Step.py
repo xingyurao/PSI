@@ -53,14 +53,23 @@ def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=1000
 
 # %% get the theoretical standard deviation
 def n_Step_theoretical_std(step=3, phase=(0, 2 * np.pi), point_number=720, lamda=530, mu_phase=0.1 * np.pi / 180,
-                           wx1=0):
-    factor = lamda / (4 * np.pi)
-    N = step
-    phase = np.linspace(phase[0], phase[1], point_number)
-    A = np.zeros([point_number])
-    for n in np.arange(1, N + 1, 1):
-        wXn = 2 * np.pi * (n - 1) / N + wx1
-        A += ((np.sin(wXn + phase)) ** 2 * (2 / N)) ** 2
-    std = np.sqrt(A) * mu_phase * factor
-    # return theoretical standard deviation
-    return std
+                           wx1=0, b=1, shot_noise=False, position_noise=True):
+    if position_noise is True:
+        factor = lamda / (4 * np.pi)
+        N = step
+        phase = np.linspace(phase[0], phase[1], point_number)
+        A = np.zeros([point_number])
+        for n in np.arange(1, N + 1, 1):
+            wXn = 2 * np.pi * (n - 1) / N + wx1
+            A += ((np.sin(wXn + phase)) ** 2 * (2 / N)) ** 2
+        std = np.sqrt(A) * mu_phase * factor
+        # return theoretical standard deviation
+        return std
+    if shot_noise is True:
+        mu_intensity = 0.001
+        factor = lamda / (4 * np.pi)
+        N = step
+        A = np.ones([point_number]) * (1 / b * np.sqrt(2 / N))
+        std = A * mu_intensity * factor
+        # return theoretical standard deviation
+        return std
