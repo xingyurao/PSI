@@ -16,7 +16,7 @@ def gauss_random(mu):
 
 # %%
 # get the std of positioning noise
-def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=0.1 * np.pi / 180,
+def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=0.1,
                        wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
     print('the current step:', step)
     if shot_noise is True:
@@ -27,7 +27,7 @@ def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=1000
     if position_noise is False:
         mu_phase = 0
     else:
-        mu_phase = mu_phase
+        mu_phase = mu_phase * np.pi / 180
 
     N = step
     factor = lamda / (4 * np.pi)
