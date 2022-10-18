@@ -6,7 +6,7 @@
 
 # %%
 import numpy as np
-
+from PSI_algorithms.Data_Process import unwraping
 
 # %%
 # create random number
@@ -16,7 +16,7 @@ def gauss_random(mu):
 
 # %%
 # get the std of positioning noise
-def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=0.1,
+def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=5,
                        wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
     print('the current step:', step)
     if shot_noise is True:
@@ -44,7 +44,8 @@ def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=1000
             upper += (a + b * np.cos(wXn + phase_interval + noise) + gauss_random(mu_intensity)) * np.sin(wXn)
             lower += (a + b * np.cos(wXn + phase_interval + noise) + gauss_random(mu_intensity)) * np.cos(wXn)
 
-        get_value[loo_p] = np.arctan(-(upper / lower))
+        get_value[loo_p] = unwraping(np.arctan(-(upper / lower)))
+
 
     std = np.std(get_value, axis=0)
     # return the monte-carlo results and their standard deviation
@@ -52,7 +53,7 @@ def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=1000
 
 
 # %% get the theoretical standard deviation
-def n_Step_theoretical_std(step=3, phase=(0, 2 * np.pi), point_number=720, lamda=530, mu_phase=0.1,
+def n_Step_theoretical_std(step=3, phase=(0, 2 * np.pi), point_number=720, lamda=530, mu_phase=5,
                            wx1=0, b=1, shot_noise=False, position_noise=True):
     mu_phase = mu_phase * np.pi / 180
     if position_noise is True:

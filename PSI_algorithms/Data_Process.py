@@ -67,3 +67,14 @@ def phase_choose(data, n):
         std.append(np.std(data[0,j:j + n]))
     index = std.index(min(std))
     return np.average(data[0,index:index + n])
+
+#%%
+def unwraping(data, lamda=530):
+
+    factor = lamda / (4 * np.pi)
+    for i in np.arange(0, np.size(data) - 1, 1):
+        if np.isclose(np.abs(data[i + 1] - data[i]), np.pi, 1.e-1):
+            data[i + 1:] = data[i + 1:] + (data[i] - data[i + 1]) / np.abs(data[i + 1] - data[i]) * np.pi
+
+
+    return data

@@ -16,7 +16,7 @@ def gauss_random(mu):
 # %%  get the std of positioning noise
 
 def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=720, loop=100000,
-             mu_phase=0.1 * np.pi / 180,
+             mu_phase=5 * np.pi / 180,
              wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
     print('the current step:', step, '\n', 'the current over sampling points:', over_sample_points)
     if shot_noise is True:
@@ -85,7 +85,7 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
 
 # %% get the theoretical standard deviation
 def N_M_theoretical_std(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=720,
-                        mu_phase=0.1 * np.pi / 180, wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False,
+                        mu_phase=5 * np.pi / 180, wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False,
                         position_noise=True):
     N = step
     M=over_sample_points
