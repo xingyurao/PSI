@@ -13,26 +13,25 @@ from PSI_algorithms.Three_sampling_Points import *
 
 # %% comparison with different sampling frequency
 phase_interval = (0, np.pi * 2)
-phase_error=5
-_, m_std_3 = n_step_single_line(step=3, phase=phase_interval, mu_phase=phase_error)
-_, m_std_4 = n_step_single_line(step=4, phase=phase_interval, mu_phase=phase_error)
-_, m_std_8 = n_step_single_line(step=8, phase=phase_interval, mu_phase=phase_error)
-_, m_std_20 = n_step_single_line(step=20, phase=phase_interval, mu_phase=.1)
+_, m_std_3 = n_step_single_line(step=3, phase=phase_interval)
+_, m_std_4 = n_step_single_line(step=4, phase=phase_interval)
+_, m_std_8 = n_step_single_line(step=8, phase=phase_interval)
+_, m_std_20 = n_step_single_line(step=20, phase=phase_interval)
 
 # create the graph
 fig = plt.figure()
 plt.style.use('scientific')
 plt.plot(m_std_3, label='3-sampling points', color='green')
-plt.plot((n_Step_theoretical_std(step=3, mu_phase=phase_error)), 'k--')
+plt.plot((n_Step_theoretical_std(step=3)), 'k--')
 
 plt.plot(m_std_4, label='4-sampling points', color='blue')
-plt.plot((n_Step_theoretical_std(step=4, mu_phase=phase_error)), 'k--')
+plt.plot((n_Step_theoretical_std(step=4)), 'k--')
 
 plt.plot(m_std_8, label='8-sampling points', color='red')
-plt.plot((n_Step_theoretical_std(step=8, mu_phase=phase_error)), 'k--')
+plt.plot((n_Step_theoretical_std(step=8)), 'k--')
 
 plt.plot(m_std_20, label='20-sampling points', color='yellow')
-plt.plot((n_Step_theoretical_std(step=20, mu_phase=.1)), 'k--')
+plt.plot((n_Step_theoretical_std(step=20)), 'k--')
 
 plt.title('comparison with different sampling frequencies')
 plt.xlabel('start phase')
@@ -41,7 +40,7 @@ plt.xlim(0, 720)
 plt.xticks([0, 720 / 4, 720 / 2, 720 / 4 * 3, 720], [r'0', r'$\pi/2$', r'$\pi$', r'$3\pi/2$', r'$2\pi$'])
 plt.legend(loc='upper right')
 plt.tight_layout()
-plt.savefig('Images/Positioning Noise/STD/comparison with different sampling frequency', bbox_inches='tight')
+plt.savefig('Images/Positioning Noise/STD/comparison with different sampling frequencies', bbox_inches='tight')
 plt.show(block=True)
 
 # %% standard deviation vs number of sampling points
@@ -49,10 +48,10 @@ x = np.append(np.array([3,5,8]), np.arange(10, 100, 20))  # different steps
 y = np.array([])  # std respectively
 phase_interval = (0, np.pi * 2)
 for N in x:
-    _, m_std = n_step_single_line(step=N, phase=phase_interval,mu_phase=5)
+    _, m_std = n_step_single_line(step=N, phase=phase_interval)
     m_std_average = np.nanmean(m_std)
     y = np.append(y, [m_std_average])
-mu_phase = 0.1 * np.pi / 180
+mu_phase = 5 * np.pi / 180
 factor = 530 / (4 * np.pi)
 x_combined = np.append(np.array(3), np.arange(5, 100, 1))
 plt.style.use('scientific')

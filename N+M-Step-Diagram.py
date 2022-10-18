@@ -29,9 +29,9 @@ plt.ylabel('standard deviation, nm')
 plt.xlim(0, 720)
 plt.xticks([0, 720 / 4, 720 / 2, 720 / 4 * 3, 720], [r'0', r'$\pi/2$', r'$\pi$', r'$3\pi/2$', r'$2\pi$'])
 plt.legend(loc='upper right')
-plt.title('comparison with {}+M sampling points'.format(N))
+plt.title('comparison with {}+M sampling interferograms'.format(N))
 plt.tight_layout()
-plt.savefig('Images/comparison with {}+M sampling points'.format(N), bbox_inches='tight')
+plt.savefig('Images/Positioning Noise/STD/comparison with {}+M sampling interferograms'.format(N), bbox_inches='tight')
 plt.show(block=1)
 
 # %% comparison between 2N sampling points and N+N sampling points
@@ -48,17 +48,17 @@ for i in N:
 plt.style.use('scientific')
 plt.figure()
 
-plt.loglog(N * 2, std_2N, 'k-', label='2N sampling points')
-plt.scatter(N * 2, std_NN, color='blue', label='N+N sampling points', edgecolors='blue')
-plt.xlabel('number of sampling points (2N)')
+plt.loglog(N * 2, std_2N, 'k-', label='2N sampling interferograms')
+plt.scatter(N * 2, std_NN, color='blue', label='N+N sampling interferograms', edgecolors='blue')
+plt.xlabel('number of sampling interferograms (2N)')
 plt.ylabel('standard deviation, nm')
 
 plt.xticks([6, 10, 12, 14, 16, 18, 20], [r'$6$', r'$10$', r'$12$', r'$14$', r'$16$', r'$18$', r'$20$'])
 plt.xlim(5, 30)
 plt.legend(loc='upper right')
-plt.title('comparison between 2N and N+N sampling points')
+plt.title('comparison between 2N and N+N sampling interferograms')
 plt.tight_layout()
-# plt.savefig('Images/comparison between 2N sampling points and N+N sampling points', bbox_inches='tight')
+plt.savefig('Images/Positioning Noise/STD/comparison between 2N sampling points and N+N sampling points', bbox_inches='tight')
 plt.show(block=1)
 
 # %% comparison between different sampling frequencies
