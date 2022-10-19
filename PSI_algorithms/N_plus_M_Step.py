@@ -5,7 +5,7 @@
 # @Software: PyCharm
 # %%
 import numpy as np
-from PSI_algorithms.Data_Process import unwraping
+
 
 
 # %%
@@ -17,7 +17,7 @@ def gauss_random(mu):
 # %%  get the std of positioning noise
 
 def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=720, loop=100000,
-             mu_phase=5,
+             mu_phase=.1,
              wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
     mu_phase = mu_phase * np.pi / 180
     print('the current step:', step, '\n', 'the current over sampling points:', over_sample_points)
@@ -78,16 +78,16 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
         upper = upper_1 + upper_2 - upper_3
         lower = lower_1 + lower_2 - lower_3
 
-        get_value[loo_p] = unwraping(np.arctan(-(upper / lower)))
+        get_value[loo_p] = (np.arctan(-(upper / lower)))
 
     std = np.std(get_value, axis=0)
     # return the monte-carlo results and their standard deviation
-    return get_value, std * factor
+    return get_value * factor, std * factor
 
 
 # %% get the theoretical standard deviation
 def N_M_theoretical_std(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=720,
-                        mu_phase=5, wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False,
+                        mu_phase=.1, wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False,
                         position_noise=True):
     mu_phase = mu_phase * np.pi / 180
     N = step
