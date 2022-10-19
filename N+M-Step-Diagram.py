@@ -14,7 +14,7 @@ M = np.arange(0, N + 1, 1)
 plt.style.use('scientific')
 plt.figure()
 for i in M:
-    _, std = N_M_step(step=N, over_sample_points=i, loop=1000,mu_phase=.1)
+    _, std = N_M_step(step=N, over_sample_points=i, loop=100000,mu_phase=.1)
     std_new = outlier_delete(std)
     plt.plot(std_new, label='M={}'.format(i))
 
