@@ -6,10 +6,10 @@
 
 # create bild of comparison with different steps
 import matplotlib.pyplot as plt
+
 from PSI_algorithms.N_Step import *
 from PSI_algorithms.Data_Process import *
 from PSI_algorithms.Three_sampling_Points import *
-
 
 # %% comparison with different sampling frequency
 phase_interval = (0, np.pi * 2)
@@ -18,9 +18,16 @@ _, m_std_4 = n_step_single_line(step=4, phase=phase_interval)
 _, m_std_8 = n_step_single_line(step=8, phase=phase_interval)
 _, m_std_20 = n_step_single_line(step=20, phase=phase_interval)
 
+
+'''
+m_std_3 = outlier_delete(m_std_3)
+m_std_4 = outlier_delete(m_std_4)
+m_std_8 = outlier_delete(m_std_8)
+m_std_20 = outlier_delete(m_std_20)
+'''
 # create the graph
-fig = plt.figure()
 plt.style.use('scientific')
+fig = plt.figure()
 plt.plot(m_std_3, label='3-sampling points', color='green')
 plt.plot((n_Step_theoretical_std(step=3)), 'k--')
 
@@ -44,7 +51,7 @@ plt.savefig('Images/Positioning Noise/STD/comparison with different sampling fre
 plt.show(block=True)
 
 # %% standard deviation vs number of sampling points
-x = np.append(np.array([3,5,8]), np.arange(10, 100, 20))  # different steps
+x = np.append(np.array([3, 5, 8]), np.arange(10, 100, 20))  # different steps
 y = np.array([])  # std respectively
 phase_interval = (0, np.pi * 2)
 for N in x:
@@ -72,7 +79,7 @@ plt.show(block=1)
 n = [3, 4, 8, 20]
 for i in n:
     Form, _ = n_step_single_line(step=i)
-    Form_free, _ = n_step_single_line(step=i, mu_phase=0,loop=1)
+    Form_free, _ = n_step_single_line(step=i, mu_phase=0, loop=1)
     plt.style.use('scientific')
     plt.figure()
     plt.plot(outlier_delete(Form[0] - Form_free[0]), label='measurement 1')
@@ -96,7 +103,7 @@ for i in n:
 n = [3, 4, 8]
 for i in n:
     Form, std = three_Sampling_Points(step=i)
-    Form_free, _=three_Sampling_Points(step=i, mu_phase=0)
+    Form_free, _ = three_Sampling_Points(step=i, mu_phase=0)
 
     plt.style.use('scientific')
     plt.figure()
@@ -118,4 +125,3 @@ for i in n:
     '''
 
     plt.show(block=1)
-
