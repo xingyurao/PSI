@@ -32,7 +32,7 @@ plt.legend(loc='upper right')
 plt.title('comparison with {}+M sampling interferograms'.format(N))
 plt.tight_layout()
 plt.savefig('Images/Positioning Noise/STD/comparison with {}+M sampling interferograms'.format(N), bbox_inches='tight')
-plt.show(block=1)
+plt.close()
 
 # %% comparison between 2N sampling points and N+N sampling points
 
