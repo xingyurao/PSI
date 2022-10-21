@@ -22,9 +22,9 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
              wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
     mu_phase = mu_phase * np.pi / 180
     print('the current step:', step, '\n', 'the current over sampling points:', over_sample_points)
-
+    print('Time:', datetime.now())
     if shot_noise is True:
-        mu_intensity = 0.001
+        mu_intensity = 0.1
     else:
         mu_intensity = 0
 

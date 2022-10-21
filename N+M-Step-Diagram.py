@@ -9,18 +9,18 @@ from PSI_algorithms.N_Step import *
 from PSI_algorithms.Data_Process import *
 
 # %% comparison with N+M sampling interferograms
-for N in np.array([3, 4, 6, 8]):
+for N in np.array([4, 6, 8]):
     M = np.arange(0, N + 1, 1)
     plt.style.use('scientific')
     plt.figure()
     for i in M:
-        _, std = N_M_step(step=N, over_sample_points=i,loop=1000)
+        _, std = N_M_step(step=N, over_sample_points=i)
         std_new = outlier_delete(std)
         plt.plot(std_new, label='M={}'.format(i))
 
     # get the theoretical value of N-sampling points
-    get_value_N = n_Step_theoretical_std(N, mu_phase=.1)
-    get_value_2N = n_Step_theoretical_std(2 * N, mu_phase=.1)
+    get_value_N = n_Step_theoretical_std(N)
+    get_value_2N = n_Step_theoretical_std(2 * N)
     plt.plot(get_value_N, 'k--')
     plt.plot(get_value_2N, 'k--')
     plt.xlabel('Start phase')
@@ -30,9 +30,9 @@ for N in np.array([3, 4, 6, 8]):
     plt.legend(loc='upper right')
     plt.title('Comparison among {}+M sampling interferograms'.format(N))
     plt.tight_layout()
-    # plt.savefig('Images/Positioning Noise/STD/comparison with {}+M sampling interferograms'.format(N),
-    #            bbox_inches='tight')
-    plt.show(block=1)
+    plt.savefig('Images/Positioning Noise/STD/comparison with {}+M sampling interferograms'.format(N),
+                bbox_inches='tight')
+    plt.close()
 
 # %% comparison between 2N sampling points and N+N sampling points
 

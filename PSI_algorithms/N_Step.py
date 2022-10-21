@@ -16,14 +16,13 @@ def gauss_random(mu):
     return np.random.normal(0, mu)
 
 
-# %%
-# get the std of positioning noise
+# %% get the std of positioning noise
 def n_step(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=5,
            wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
     print('the current step:', step)
     print('Time:', datetime.now())
     if shot_noise is True:
-        mu_intensity = 0.001
+        mu_intensity = 0.1
     else:
         mu_intensity = 0
 
@@ -74,7 +73,7 @@ def n_Step_theoretical_std(step=3, phase=(0, 2 * np.pi), point_number=720, lamda
         # return theoretical standard deviation
         return std
     if shot_noise is True:
-        mu_intensity = 0.001
+        mu_intensity = 0.1
         factor = lamda / (4 * np.pi)
         N = step
         A = np.ones([point_number]) * (1 / b * np.sqrt(2 / N))
