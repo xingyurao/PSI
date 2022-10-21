@@ -80,12 +80,17 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
         get_value[loo_p] = (np.arctan(-(upper / lower)))
 
     print('start unwraping:', datetime.now())
-    for i in np.arange(0, np.shape(get_value)[0], 1):
-        get_value[i, :] = unwraping(get_value[i, :])
+    if position_noise is True:
+        for i in np.arange(0, np.shape(get_value)[0], 1):
+            get_value[i, :] = unwraping(get_value[i, :])
 
-    std = np.std(get_value, axis=0)
-    # return the monte-carlo results and their standard deviation
-    return get_value * factor, std * factor
+        std = np.std(get_value, axis=0)
+        # return the monte-carlo results and their standard deviation
+        return get_value * factor, std * factor
+    else:
+        std = np.std(get_value, axis=0)
+        # return the monte-carlo results and their standard deviation
+        return get_value * factor, std * factor
 
 
 # %% get the theoretical standard deviation
