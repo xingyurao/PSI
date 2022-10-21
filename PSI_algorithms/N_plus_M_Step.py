@@ -18,12 +18,11 @@ def gauss_random(mu):
 # %%  get the std of positioning noise
 
 def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=720, loop=100000,
-             mu_phase=.1,
+             mu_phase=5,
              wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
     mu_phase = mu_phase * np.pi / 180
     print('the current step:', step, '\n', 'the current over sampling points:', over_sample_points)
-    print(datetime.now())
-    Time=datetime.now()
+
     if shot_noise is True:
         mu_intensity = 0.001
     else:
@@ -41,11 +40,6 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
     phase_interval = np.linspace(phase[0], phase[1], point_number)
 
     for loo_p in np.arange(0, loop, 1):
-        if loo_p == 0:
-            print(datetime.now())
-        if loo_p == 10000:
-            print(datetime.now())
-
         noise_position = np.zeros([N + M])
         noise_shot = np.zeros([N + M, point_number])
         for i in np.arange(0, N + M, 1):
@@ -84,7 +78,8 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
         lower = lower_1 + lower_2 - lower_3
 
         get_value[loo_p] = (np.arctan(-(upper / lower)))
-    print(datetime.now()-Time)
+
+    print('start unwraping:', datetime.now())
     for i in np.arange(0, np.shape(get_value)[0], 1):
         get_value[i, :] = unwraping(get_value[i, :])
 
@@ -95,7 +90,7 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
 
 # %% get the theoretical standard deviation
 def N_M_theoretical_std(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=720,
-                        mu_phase=.1, wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False,
+                        mu_phase=5, wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False,
                         position_noise=True):
     mu_phase = mu_phase * np.pi / 180
     N = step

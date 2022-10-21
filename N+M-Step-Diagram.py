@@ -14,7 +14,7 @@ for N in np.array([3, 4, 6, 8]):
     plt.style.use('scientific')
     plt.figure()
     for i in M:
-        _, std = N_M_step(step=N, over_sample_points=i)
+        _, std = N_M_step(step=N, over_sample_points=i,loop=1000)
         std_new = outlier_delete(std)
         plt.plot(std_new, label='M={}'.format(i))
 
@@ -30,9 +30,9 @@ for N in np.array([3, 4, 6, 8]):
     plt.legend(loc='upper right')
     plt.title('Comparison among {}+M sampling interferograms'.format(N))
     plt.tight_layout()
-    plt.savefig('Images/Positioning Noise/STD/comparison with {}+M sampling interferograms'.format(N),
-                bbox_inches='tight')
-    plt.close()
+    # plt.savefig('Images/Positioning Noise/STD/comparison with {}+M sampling interferograms'.format(N),
+    #            bbox_inches='tight')
+    plt.show(block=1)
 
 # %% comparison between 2N sampling points and N+N sampling points
 
