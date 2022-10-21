@@ -18,8 +18,8 @@ def gauss_random(mu):
 
 # %%
 # get the std of positioning noise
-def n_step_single_line(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=5,
-                       wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
+def n_step(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=5,
+           wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
     print('the current step:', step)
     print('Time:', datetime.now())
     if shot_noise is True:

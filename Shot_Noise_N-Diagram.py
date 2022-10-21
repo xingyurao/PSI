@@ -12,10 +12,10 @@ from PSI_algorithms.Three_sampling_Points import *
 
 # %% comparison with different sampling frequency
 phase_interval = (0, np.pi * 2)
-_, m_std_3 = n_step_single_line(step=3, phase=phase_interval, position_noise=False, shot_noise=True)
-_, m_std_4 = n_step_single_line(step=4, phase=phase_interval, position_noise=False, shot_noise=True)
-_, m_std_8 = n_step_single_line(step=8, phase=phase_interval, position_noise=False, shot_noise=True)
-_, m_std_20 = n_step_single_line(step=20, phase=phase_interval, position_noise=False, shot_noise=True)
+_, m_std_3 = n_step(step=3, phase=phase_interval, position_noise=False, shot_noise=True)
+_, m_std_4 = n_step(step=4, phase=phase_interval, position_noise=False, shot_noise=True)
+_, m_std_8 = n_step(step=8, phase=phase_interval, position_noise=False, shot_noise=True)
+_, m_std_20 = n_step(step=20, phase=phase_interval, position_noise=False, shot_noise=True)
 
 m_std_3 = outlier_delete(m_std_3)
 m_std_4 = outlier_delete(m_std_4)
@@ -50,7 +50,7 @@ x = np.append(np.array([[3,4,8]]), np.arange(10, 100, 20))  # different steps
 y = np.array([])  # std respectively
 phase_interval = (0, np.pi * 2)
 for N in x:
-    _, m_std = n_step_single_line(step=N, phase=phase_interval,position_noise=False,shot_noise=True)
+    _, m_std = n_step(step=N, phase=phase_interval, position_noise=False, shot_noise=True)
     m_std_outlier = outlier_delete(m_std)
     m_std_average = np.nanmean(m_std_outlier)
     y = np.append(y, [m_std_average])
