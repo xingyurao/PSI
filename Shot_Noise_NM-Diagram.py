@@ -15,8 +15,8 @@ for N in np.array([3]):
     plt.style.use('scientific')
     fig1 = plt.figure()
     for i in M:
-        _, std = N_M_step(step=N, over_sample_points=i, position_noise=False, shot_noise=True,loop=10)
-
+        _, std = N_M_step(step=N, over_sample_points=i, position_noise=False, shot_noise=True,loop=100)
+        std=outlier_delete(std)
         plt.plot(std, label='M={}'.format(i))
 
     # get the theoretical value of N-sampling points

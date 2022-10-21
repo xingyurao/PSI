@@ -6,7 +6,7 @@
 # %%
 import numpy as np
 from datetime import datetime
-from PSI_algorithms.Data_Process import unwraping
+from PSI_algorithms.Data_Process import unwraping, outlier_delete,unwraping_shotnoise
 
 
 # %%
@@ -88,7 +88,10 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
         # return the monte-carlo results and their standard deviation
         return get_value * factor, std * factor
     else:
-        std = np.std(get_value, axis=0)
+        for i in np.arange(0, np.shape(get_value)[0], 1):
+            get_value[i, :] = unwraping_shotnoise(get_value[i, :])
+
+        std = outlier_delete(np.std(get_value, axis=0))
         # return the monte-carlo results and their standard deviation
         return get_value * factor, std * factor
 
