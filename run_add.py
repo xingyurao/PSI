@@ -35,6 +35,6 @@ plt.xlim(5, 30)
 plt.legend(loc='upper right')
 plt.title('Comparison between 2N and N+N sampling interferograms')
 plt.tight_layout()
-#plt.savefig('Images/Positioning Noise/STD/comparison between 2N sampling points and N+N sampling points',
-#            bbox_inches='tight')
-plt.show(block=1)
+plt.savefig('Images/Positioning Noise/STD/comparison between 2N sampling points and N+N sampling points',
+            bbox_inches='tight')
+plt.close()
