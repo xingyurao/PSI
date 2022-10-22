@@ -6,13 +6,7 @@
 # %%
 import numpy as np
 from datetime import datetime
-from PSI_algorithms.Data_Process import unwraping, outlier_delete,unwraping_shotnoise
-
-
-# %%
-# create random number
-def gauss_random(mu):
-    return np.random.normal(0, mu)
+from PSI_algorithms.Data_Process import unwraping, outlier_delete, unwraping_shotnoise
 
 
 # %%  get the std of positioning noise
@@ -40,14 +34,8 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
     phase_interval = np.linspace(phase[0], phase[1], point_number)
 
     for loo_p in np.arange(0, loop, 1):
-        noise_position = np.zeros([N + M])
-        noise_shot = np.zeros([N + M, point_number])
-        for i in np.arange(0, N + M, 1):
-            for j in np.arange(0, point_number, 1):
-                noise_shot[i, j] = gauss_random(mu_intensity)
-
-        for i in np.arange(0, N + M, 1):
-            noise_position[i] = gauss_random(mu_phase)
+        noise_position = np.random.normal(0, mu_phase, size=M + N)
+        noise_shot = np.random.normal(0, mu_intensity, size=(N + M, point_number))
 
         upper_1 = np.zeros([point_number])
         upper_2 = np.zeros([point_number])
