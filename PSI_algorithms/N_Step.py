@@ -42,7 +42,7 @@ def n_step(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase
 
         for n in np.arange(1, N + 1, 1):
             wXn = 2 * np.pi * (n - 1) / N + wx1
-            noise = gauss_random(mu_phase)
+            noise = np.random.normal(0, mu_phase)
             upper += (a + b * np.cos(wXn + phase_interval + noise) + gauss_random(mu_intensity)) * np.sin(wXn)
             lower += (a + b * np.cos(wXn + phase_interval + noise) + gauss_random(mu_intensity)) * np.cos(wXn)
 
