@@ -10,12 +10,12 @@ from PSI_algorithms.N_Step import *
 from PSI_algorithms.Data_Process import *
 
 # %% comparison with N+M sampling points
-for N in np.array([3]):
+for N in np.array([3,4,5,6,8]):
     M = np.arange(0, N + 1, 1)
     plt.style.use('scientific')
     fig1 = plt.figure()
     for i in M:
-        _, std = N_M_step(step=N, over_sample_points=i, position_noise=False, shot_noise=True,loop=100)
+        _, std = N_M_step(step=N, over_sample_points=i, position_noise=False, shot_noise=True)
         std=outlier_delete(std)
         plt.plot(std, label='M={}'.format(i))
 
@@ -33,6 +33,5 @@ for N in np.array([3]):
     plt.title('Comparison among {}+M sampling interferograms'.format(N))
     plt.tight_layout()
     plt.savefig('Images/Shot Noise/comparison with {}+M sampling points'.format(N), bbox_inches='tight')
-    plt.show(block=1)
     plt.close(fig1)
 #%%

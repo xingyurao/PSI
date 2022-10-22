@@ -24,7 +24,7 @@ def N_M_step(step=3, over_sample_points=1, phase=(0, 2 * np.pi), point_number=72
     print('the current step:', step, '\n', 'the current over sampling points:', over_sample_points)
     print('Time:', datetime.now())
     if shot_noise is True:
-        mu_intensity = 0.1
+        mu_intensity = 0.01
     else:
         mu_intensity = 0
 
@@ -115,7 +115,7 @@ def N_M_theoretical_std(step=3, over_sample_points=1, phase=(0, 2 * np.pi), poin
         # return theoretical standard deviation
         return std
     if shot_noise is True:
-        mu_intensity = 0.001
+        mu_intensity = 0.01
         factor = lamda / (4 * np.pi)
         phase = np.linspace(phase[0], phase[1], point_number)
         A = np.zeros([point_number])

@@ -3,7 +3,6 @@
 # @Email   : x.rao@tu-braunschweig.de
 # @File    : Problem_Proof.py
 # @Software: PyCharm
-import numpy as np
 
 from PSI_algorithms.N_plus_M_Step import *
 from PSI_algorithms.N_Step import n_Step_theoretical_std
@@ -33,3 +32,6 @@ plt.tight_layout()
 plt.savefig('Images/Positioning Noise/STD/comparison with {}+M sampling interferograms(6+3)'.format(N),
             bbox_inches='tight')
 plt.close()
+
+
+#%%
