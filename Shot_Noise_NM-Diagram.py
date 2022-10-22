@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from PSI_algorithms.N_plus_M_Step import *
 from PSI_algorithms.N_Step import *
 from PSI_algorithms.Data_Process import *
-
+'''
 # %% comparison with N+M sampling points
 for N in np.array([3,4,5,6,8]):
     M = np.arange(0, N + 1, 1)
@@ -35,6 +35,8 @@ for N in np.array([3,4,5,6,8]):
     plt.savefig('Images/Shot Noise/comparison with {}+M sampling points'.format(N), bbox_inches='tight')
     plt.close(fig1)
 
+'''
+
 # %% comparison between 2N sampling points and N+N sampling points
 
 N = np.append(np.array([3]), np.arange(5, 11, 1))
@@ -42,17 +44,16 @@ std_NN = np.array([])
 std_2N = np.array([])
 for i in N:
     _, std_nn = N_M_step(step=i, over_sample_points=i, position_noise=False, shot_noise=True)
-    std_nn=outlier_delete(std_nn)
-    std_NN = np.append(std_NN, np.nanmean(outlier_delete(std_nn)))
+    std_NN = np.append(std_NN, np.nanmean(std_nn))
     _, std_2n = n_step(step=i * 2)
-    std_2N = np.append(std_2N, np.nanmean(outlier_delete(std_2n)))
+    std_2N = np.append(std_2N, np.nanmean(std_2n))
 
 plt.style.use('scientific')
 plt.figure()
 factor = 530 / (4 * np.pi)
-plt.loglog(N * 2, std_2N, 'k-', label='2N sampling interferograms', zuorder=1)
+plt.loglog(N * 2, std_2N, 'k-', label='2N sampling interferograms', zorder=1)
 plt.scatter(N * 2, std_NN, color='blue', label='N+N sampling interferograms', edgecolors='blue', zorder=2)
-plt.scatter(np.array([8]), np.array([np.sqrt(3 / 2 / 8) * factor * 5 * np.pi / 180]), color='white', marker='o',
+plt.scatter(np.array([8]), np.array([np.sqrt(2 / 8) * factor * 5 * np.pi / 180]), color='white', marker='o',
             edgecolors='k', zorder=2)
 
 plt.xlabel('Number of sampling interferograms (2N)')
@@ -63,10 +64,11 @@ plt.xlim(5, 30)
 plt.legend(loc='upper right')
 plt.title('Comparison between 2N and N+N sampling interferograms')
 plt.tight_layout()
-plt.savefig('Images/Positioning Noise/STD/comparison between 2N sampling points and N+N sampling points',
+plt.savefig('Images/Shot Noise/comparison between 2N sampling points and N+N sampling points',
             bbox_inches='tight')
-plt.show(block=1)
+plt.close()
 
+'''
 # %% comparison between different sampling frequencies # create 6+6 7+5 8+4...12+0 step
 All_step = 16
 x = np.arange(0, All_step / 2 + 1, 1)
@@ -96,3 +98,5 @@ plt.title('Comparison among different sampling frequencies')
 plt.tight_layout()
 plt.savefig('Images/Positioning Noise/STD/comparison between different sampling frequencies', bbox_inches='tight')
 plt.show(block=1)
+'''
+

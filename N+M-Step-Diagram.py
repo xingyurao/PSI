@@ -48,7 +48,7 @@ for i in N:
 plt.style.use('scientific')
 plt.figure()
 factor = 530 / (4 * np.pi)
-plt.loglog(N * 2, std_2N, 'k-', label='2N sampling interferograms', zuorder=1)
+plt.loglog(N * 2, std_2N, 'k-', label='2N sampling interferograms', zorder=1)
 plt.scatter(N * 2, std_NN, color='blue', label='N+N sampling interferograms', edgecolors='blue', zorder=2)
 plt.scatter(np.array([8]), np.array([np.sqrt(3 / 2 / 8) * factor * 5 * np.pi / 180]), color='white', marker='o',
             edgecolors='k', zorder=2)

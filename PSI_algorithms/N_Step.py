@@ -6,7 +6,7 @@
 
 # %%
 import numpy as np
-from PSI_algorithms.Data_Process import unwraping
+from PSI_algorithms.Data_Process import unwraping, unwraping_shotnoise, outlier_delete
 from datetime import datetime
 
 
@@ -49,12 +49,20 @@ def n_step(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase
         get_value[loo_p] = np.arctan(-(upper / lower))
 
     print('start unwraping:', datetime.now())
-    for i in np.arange(0, np.shape(get_value)[0], 1):
-        get_value[i, :] = unwraping(get_value[i, :])
+    if position_noise is True:
+        for i in np.arange(0, np.shape(get_value)[0], 1):
+            get_value[i, :] = unwraping(get_value[i, :])
 
-    std = np.std(get_value, axis=0)
-    # return the monte-carlo results and their standard deviation
-    return get_value * factor, std * factor
+        std = np.std(get_value, axis=0)
+        # return the monte-carlo results and their standard deviation
+        return get_value * factor, std * factor
+    else:
+        for i in np.arange(0, np.shape(get_value)[0], 1):
+            get_value[i, :] = unwraping_shotnoise(get_value[i, :])
+
+        std = outlier_delete(np.std(get_value, axis=0))
+        # return the monte-carlo results and their standard deviation
+        return get_value * factor, std * factor
 
 
 # %% get the theoretical standard deviation
