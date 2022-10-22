@@ -14,7 +14,7 @@ N = np.append(np.array([3]), np.arange(5, 11, 1))
 std_NN = np.array([])
 std_2N = np.array([])
 for i in N:
-    _, std_nn = N_M_step(step=i, over_sample_points=i,loop=10)
+    _, std_nn = N_M_step(step=i, over_sample_points=i)
     std_NN = np.append(std_NN, np.nanmean(outlier_delete(std_nn)))
     _, std_2n = n_step(step=i * 2)
     std_2N = np.append(std_2N, np.nanmean(outlier_delete(std_2n)))
@@ -22,7 +22,7 @@ for i in N:
 plt.style.use('scientific')
 plt.figure()
 factor = 530 / (4 * np.pi)
-plt.loglog(N * 2, std_2N, 'k-', label='2N sampling interferograms', zuorder=1)
+plt.loglog(N * 2, std_2N, 'k-', label='2N sampling interferograms', zorder=1)
 plt.scatter(N * 2, std_NN, color='blue', label='N+N sampling interferograms', edgecolors='blue', zorder=2)
 plt.scatter(np.array([8]), np.array([np.sqrt(3 / 2 / 8) * factor * 5 * np.pi / 180]), color='white', marker='o',
             edgecolors='k', zorder=2)
