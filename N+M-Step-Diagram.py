@@ -65,7 +65,7 @@ plt.savefig('Images/Positioning Noise/STD/comparison between 2N sampling points 
             bbox_inches='tight')
 plt.show(block=1)
 
-# %% comparison between different sampling frequencies # create 6+6 7+5 8+4...12+0 step
+# %% comparison between different sampling frequencies # create 8+8 9+7 10+6...16+0 step
 All_step = 16
 x = np.arange(0, All_step / 2 + 1, 1)
 y = np.array([])

@@ -17,8 +17,8 @@ for theta in np.linspace(0, np.pi, 80):
         (-1.6647 * (I[1] - I[2] - I[5] + I[6])) / (-(I[0] + I[3] + I[4] + I[7]) + (I[1] + I[2] + I[5] + I[6]))))
 '''
 
+'''
 #%% test halb number equal 0
-
 for theta in np.linspace(0,np.pi*2,1000):
 
     for N in np.arange(4,100,2):
@@ -27,3 +27,7 @@ for theta in np.linspace(0,np.pi*2,1000):
             all+=np.cos((theta+2*np.pi*(n-1)/N)*4)
         if not np.isclose(all,0,atol=1.e-5):
             print('error:',N)
+            
+'''
+
+
