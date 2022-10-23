@@ -22,19 +22,19 @@ _, m_std_20 = n_step(step=20, phase=phase_interval)
 # create the graph
 plt.style.use('scientific')
 fig = plt.figure()
-plt.plot(m_std_3, label='3-sampling points', color='green')
+plt.plot(m_std_3, label='3-sampling interferograms', color='green')
 plt.plot((n_Step_theoretical_std(step=3)), 'k--')
 
-plt.plot(m_std_4, label='4-sampling points', color='blue')
+plt.plot(m_std_4, label='4-sampling interferograms', color='blue')
 plt.plot((n_Step_theoretical_std(step=4)), 'k--')
 
-plt.plot(m_std_8, label='8-sampling points', color='red')
+plt.plot(m_std_8, label='8-sampling interferogramss', color='red')
 plt.plot((n_Step_theoretical_std(step=8)), 'k--')
 
-plt.plot(m_std_20, label='20-sampling points', color='yellow')
+plt.plot(m_std_20, label='20-sampling interferograms', color='yellow')
 plt.plot((n_Step_theoretical_std(step=20)), 'k--')
 
-plt.title('Comparison among different number of sampling Interferograms')
+plt.title('Comparison among different number of sampling interferograms')
 plt.xlabel('Start phase')
 plt.ylabel('Standard deviation, nm')
 plt.xlim(0, 720)

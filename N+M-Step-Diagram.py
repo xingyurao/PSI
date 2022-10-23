@@ -9,7 +9,7 @@ from PSI_algorithms.N_Step import *
 from PSI_algorithms.Data_Process import *
 
 # %% comparison with N+M sampling interferograms
-for N in np.array([4, 6, 8]):
+for N in np.array([4]):
     M = np.arange(0, N + 1, 1)
     plt.style.use('scientific')
     plt.figure()
@@ -20,7 +20,7 @@ for N in np.array([4, 6, 8]):
 
     # get the theoretical value of N-sampling points
     get_value_N = n_Step_theoretical_std(N)
-    get_value_2N = n_Step_theoretical_std(2 * N)
+    get_value_2N = N_M_theoretical_std(step=N, over_sample_points=N)
     plt.plot(get_value_N, 'k--')
     plt.plot(get_value_2N, 'k--')
     plt.xlabel('Start phase')
@@ -93,4 +93,35 @@ plt.ylabel('Standard deviation, nm')
 plt.title('Comparison among different sampling frequencies')
 plt.tight_layout()
 plt.savefig('Images/Positioning Noise/STD/comparison between different sampling frequencies', bbox_inches='tight')
+plt.show(block=1)
+# %% comparison between (N+1/2N) sampling und N+1/2N sampling interferograms
+
+std_NN = np.array([])
+std_NM = np.array([])
+x=np.arange(6,20,2)
+x=(x+x/2).astype(int)
+for N in np.arange(6, 20, 2):
+    _, std = n_step(step=N + N / 2)
+    std_NN = np.append(std_NN, np.mean(std))
+    _, std = N_M_step(step=N, over_sample_points=int(N / 2))
+    std_NM = np.append(std_NM, np.mean(std))
+
+plt.style.use('scientific')
+plt.figure()
+factor = 530 / (4 * np.pi)
+plt.loglog(x, std_NN, 'k', label='N sampling interferograms',marker='o',markeredgecolor='k')
+plt.loglog(x, std_NM, 'r', label='N+M sampling interferograms',marker='o',markeredgecolor='r')
+
+plt.xlabel('Number of sampling interferograms')
+plt.ylabel('Standard deviation, nm')
+
+plt.xticks([9, 15, 20, 30], [r'$9$', r'$15$','', r'$30$'])
+plt.yticks([0.6,1,2],[r'$0.6$',r'$1$',r'$2$'])
+plt.xlim(8, 30)
+plt.ylim(0.5,2)
+plt.legend(loc='upper right')
+plt.title('comparison between N und N+M sampling interferograms')
+plt.tight_layout()
+plt.savefig('Images/Positioning Noise/STD/comparison sampling sampling interferograms',
+            bbox_inches='tight')
 plt.show(block=1)
