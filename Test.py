@@ -3,7 +3,7 @@
 # @Email   : x.rao@tu-braunschweig.de
 # @File    : Test.py
 # @Software: PyCharm
-import numpy as np
+
 '''
 #%% test sinPSI (8)
 x = np.linspace(0, np.pi, 80)
@@ -30,40 +30,124 @@ for theta in np.linspace(0,np.pi*2,1000):
             
 '''
 
-
-# %% comparison between (N+1/2N) sampling und N+1/2N sampling interferograms
+#%% cos curve sampling 3sampling
+import numpy as np
 import matplotlib.pyplot as plt
-from PSI_algorithms.N_plus_M_Step import *
-from PSI_algorithms.N_Step import *
-from PSI_algorithms.Data_Process import *
+import matplotlib.patches as patches
+import mpl_toolkits.axisartist as axisartist
 
-std_NN = np.array([])
-std_NM = np.array([])
-x=np.arange(4,20,2)
-x=(x+x/2).astype(int)
-for N in np.arange(4, 20, 2):
-    _, std = n_step(step=N + N / 2,position_noise=False,shot_noise=True)
-    std_NN = np.append(std_NN, np.nanmean(std))
-    _, std = N_M_step(step=N, over_sample_points=int(N / 2),position_noise=False,shot_noise=True)
-    std_NM = np.append(std_NM, np.nanmean(std))
+sampling=3
+kwx=np.pi/3
 
+x=np.linspace(0,2*np.pi,1000)
+y=np.cos(x)
 plt.style.use('scientific')
-plt.figure()
-factor = 530 / (4 * np.pi)
-plt.loglog(x, std_NN, 'k', label='N sampling interferograms',marker='o',markeredgecolor='k')
-plt.loglog(x, std_NM, 'r', label='N+M sampling interferograms',marker='o',markeredgecolor='r')
+fig=plt.figure()
+ax = axisartist.Subplot(fig, 111)
+fig.add_axes(ax)
+# 通过set_visible方法设置绘图区所有坐标轴隐藏
+ax.axis[:].set_visible(False)
+# ax.new_floating_axis代表添加新的坐标轴
+ax.axis["x"] = ax.new_floating_axis(0,0)
+# 给x坐标轴加上箭头
+ax.axis["x"].set_axisline_style("->", size = 1.0)
+# 添加y坐标轴，且加上箭头
+ax.axis["y"] = ax.new_floating_axis(1,0)
+ax.axis["y"].set_axisline_style("->", size = 1.0)
+# 设置x、y轴上刻度显示方向
+ax.axis["x"].set_axis_direction("bottom")
+ax.axis["y"].set_axis_direction("right")
 
-plt.xlabel('Number of sampling interferograms')
-plt.ylabel('Standard deviation, nm')
 
-plt.xticks([5,6, 15, 20, 30], ['',r'$6$', r'$15$','', r'$30$'])
-plt.yticks([0.04,0.05,0.06,0.1,0.2,0.3],['',r'$0.05$','',r'$0.1$',r'$0.2$',''])
-plt.xlim(5, 30)
-plt.ylim(0.08,0.3)
-plt.legend(loc='upper right')
-plt.title('Comparison between N und N+M sampling interferograms')
+plt.plot(x,y,'k')
+plt.xticks([0,np.pi/2,np.pi,np.pi/2*3,np.pi*2],['','','','',''])
+plt.text(x=np.pi/48,y=-.1,s=r'$0$',fontsize=13,verticalalignment="center",horizontalalignment="center")
+plt.text(x=np.pi/2.1,y=-.15,s=r'$\frac{\pi}{2}$',fontsize=16,verticalalignment="center",horizontalalignment="center")
+plt.text(x=np.pi,y=.1,s=r'$\pi$',fontsize=13,verticalalignment="center",horizontalalignment="center")
+plt.text(x=3*np.pi/2.05,y=.15,s=r'$\frac{3\pi}{2}$',fontsize=16,verticalalignment="center",horizontalalignment="center")
+plt.text(x=2*np.pi,y=-.1,s=r'$2\pi$',fontsize=13,verticalalignment="center",horizontalalignment="center")
+
+plt.yticks([-1,1],['',''])
+
+style = "-|>,head_length=4, head_width=1, widthA=.5, widthB=.5, lengthA=0.2, lengthB=0.2"
+kw = dict(arrowstyle=style, color='k')
+
+for n in np.arange(kwx,np.pi*2,2*np.pi/3):
+    a1 = patches.FancyArrowPatch((n, 0.), (n, np.cos(n)), **kw)
+    #plt.text(arrow_theta_2[i], arrow_r_2[i] + .1, r'${}$'.format(i + 6), fontsize=18)
+    plt.gca().add_patch(a1)
+    plt.scatter(x=n,y=np.cos(n),marker='o',color='red',edgecolors='r',zorder=2)
+
+
+style_2 = "<->,head_length=4, head_width=1, widthA=1.0, widthB=1.0, lengthA=0.2, lengthB=0.2, angleA=0, angleB=0"
+kw_2 = dict(arrowstyle=style_2, color='k')
+a2= patches.FancyArrowPatch((0, 0.2), (kwx, 0.2), **kw_2)
+plt.gca().add_patch(a2)
+plt.text(kwx/2,.3,r'$kW_1(x,y)$',fontsize=13,verticalalignment="center",horizontalalignment="center")
+
 plt.tight_layout()
-plt.savefig('Images/Shot Noise/comparison sampling sampling interferograms',
-            bbox_inches='tight')
+plt.savefig('Images/ppt-picture/3-sampling', bbox_inches='tight')
 plt.show(block=1)
 
+
+#%% cos curve sampling 3sampling
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+import mpl_toolkits.axisartist as axisartist
+
+sampling=3
+kwx=np.pi/3
+
+x=np.linspace(0,3.5*np.pi,1000)
+y=np.cos(x)
+
+plt.style.use('scientific')
+fig=plt.figure()
+ax = axisartist.Subplot(fig, 111)
+fig.add_axes(ax)
+# 通过set_visible方法设置绘图区所有坐标轴隐藏
+ax.axis[:].set_visible(False)
+# ax.new_floating_axis代表添加新的坐标轴
+ax.axis["x"] = ax.new_floating_axis(0,0)
+# 给x坐标轴加上箭头
+ax.axis["x"].set_axisline_style("->", size = 1.0)
+# 添加y坐标轴，且加上箭头
+ax.axis["y"] = ax.new_floating_axis(1,0)
+ax.axis["y"].set_axisline_style("->", size = 1.0)
+# 设置x、y轴上刻度显示方向
+ax.axis["x"].set_axis_direction("bottom")
+ax.axis["y"].set_axis_direction("right")
+
+
+plt.plot(x,y,'k')
+plt.xticks([0,np.pi/2,np.pi,np.pi/2*3,np.pi*2],['','','','',''])
+plt.text(x=np.pi/48,y=-.1,s=r'$0$',fontsize=13,verticalalignment="center",horizontalalignment="center")
+plt.text(x=np.pi/2.1,y=-.15,s=r'$\frac{\pi}{2}$',fontsize=16,verticalalignment="center",horizontalalignment="center")
+plt.text(x=np.pi,y=.1,s=r'$\pi$',fontsize=13,verticalalignment="center",horizontalalignment="center")
+plt.text(x=3*np.pi/2.05,y=.15,s=r'$\frac{3\pi}{2}$',fontsize=16,verticalalignment="center",horizontalalignment="center")
+plt.text(x=2*np.pi,y=-.1,s=r'$2\pi$',fontsize=13,verticalalignment="center",horizontalalignment="center")
+plt.text(x=5*np.pi/2.03,y=-.15,s=r'$\frac{5\pi}{2}$',fontsize=16,verticalalignment="center",horizontalalignment="center")
+plt.text(x=3*np.pi,y=.1,s=r'$3\pi$',fontsize=13,verticalalignment="center",horizontalalignment="center")
+
+plt.yticks([-1,1],['',''])
+
+style = "-|>,head_length=4, head_width=1, widthA=.5, widthB=.5, lengthA=0.2, lengthB=0.2"
+kw = dict(arrowstyle=style, color='k')
+
+for n in np.arange(kwx,np.pi*3.5,2*np.pi/3):
+    a1 = patches.FancyArrowPatch((n, 0.), (n, np.cos(n)), **kw)
+    #plt.text(arrow_theta_2[i], arrow_r_2[i] + .1, r'${}$'.format(i + 6), fontsize=18)
+    plt.gca().add_patch(a1)
+    plt.scatter(x=n,y=np.cos(n),marker='o',color='red',edgecolors='r',zorder=2)
+
+
+style_2 = "<->,head_length=4, head_width=1, widthA=1.0, widthB=1.0, lengthA=0.2, lengthB=0.2, angleA=0, angleB=0"
+kw_2 = dict(arrowstyle=style_2, color='k')
+a2= patches.FancyArrowPatch((0, 0.2), (kwx, 0.2), **kw_2)
+plt.gca().add_patch(a2)
+plt.text(kwx/2,.3,r'$kW_1(x,y)$',fontsize=10,verticalalignment="center",horizontalalignment="center")
+
+plt.tight_layout()
+plt.savefig('Images/ppt-picture/3+2-sampling', bbox_inches='tight')
+plt.show(block=1)

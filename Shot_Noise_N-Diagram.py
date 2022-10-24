@@ -6,6 +6,8 @@
 
 # create bild of comparison with different steps
 import matplotlib.pyplot as plt
+import numpy as np
+
 from PSI_algorithms.N_Step import *
 from PSI_algorithms.Data_Process import *
 
@@ -70,4 +72,14 @@ plt.legend(loc='upper right')
 plt.xlim(2, 200)
 plt.tight_layout()
 plt.savefig('Images/Shot Noise/standard deviation vs number of sampling points', bbox_inches='tight')
+plt.show(block=1)
+#%%
+form_noise,std=n_step(step=4,shot_noise=True,position_noise=False,loop=300)
+form_free,_=n_step(step=4,shot_noise=False,position_noise=False,mu_phase=0,loop=300)
+plt.figure()
+plt.subplot(211)
+for i in np.arange(0,4,1):
+    plt.plot(outlier_delete(form_noise[i]-form_free[0]))
+plt.subplot(212)
+plt.plot(std)
 plt.show(block=1)

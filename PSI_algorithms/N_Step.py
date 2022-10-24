@@ -17,12 +17,12 @@ def gauss_random(mu):
 
 
 # %% get the std of positioning noise
-def n_step(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=5,
+def n_step(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase=5, mu_intensity=0.01,
            wx1: float = .0, a=0, b=1, lamda=530, shot_noise=False, position_noise=True):
     print('the current step:', step)
     print('Time:', datetime.now())
     if shot_noise is True:
-        mu_intensity = 0.01
+        mu_intensity = mu_intensity
     else:
         mu_intensity = 0
 
@@ -42,9 +42,10 @@ def n_step(step=3, phase=(0, 2 * np.pi), point_number=720, loop=100000, mu_phase
 
         for n in np.arange(1, N + 1, 1):
             wXn = 2 * np.pi * (n - 1) / N + wx1
-            noise = np.random.normal(0, mu_phase)
-            upper += (a + b * np.cos(wXn + phase_interval + noise) + gauss_random(mu_intensity)) * np.sin(wXn)
-            lower += (a + b * np.cos(wXn + phase_interval + noise) + gauss_random(mu_intensity)) * np.cos(wXn)
+            noise_position = np.random.normal(0, mu_phase)
+            noise_shot=np.random.normal(0, mu_intensity,size=point_number)
+            upper += (a + b * np.cos(wXn + phase_interval + noise_position) + noise_shot) * np.sin(wXn)
+            lower += (a + b * np.cos(wXn + phase_interval + noise_position) + noise_shot) * np.cos(wXn)
 
         get_value[loo_p] = np.arctan(-(upper / lower))
 
