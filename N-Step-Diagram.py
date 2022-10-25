@@ -72,7 +72,7 @@ plt.savefig('Images/Positioning Noise/STD/standard deviation vs number of sampli
 plt.show(block=1)
 
 # %%  form error for [3,4,8,20]-step algorithms
-n = [6]
+n = [12]
 for i in n:
     Form, _ = n_step(step=i,loop=4)
     Form_free, _ = n_step(step=i, mu_phase=0, loop=1)
@@ -81,6 +81,7 @@ for i in n:
     plt.plot(outlier_delete(Form[0] - Form_free[0]), label='measurement 1')
     plt.plot(outlier_delete(Form[1] - Form_free[0]), label='measurement 2')
     plt.plot(outlier_delete(Form[2] - Form_free[0]), label='measurement 3')
+    plt.plot(outlier_delete(Form[3] - Form_free[0]), label='measurement 4')
     plt.plot(np.arange(0,720,1),np.zeros([720]),'k--')
 
     plt.title('Form error for {}-step algorithms'.format(i))

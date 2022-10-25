@@ -126,7 +126,7 @@ plt.savefig('Images/Positioning Noise/STD/comparison sampling sampling interfero
             bbox_inches='tight')
 plt.show(block=1)
 # %%  form error for [3,4,8,20]-step algorithms
-n = [10]
+n = [6]
 for i in n:
     Form, _ = n_step(step=i,loop=4)
     Form_free, _ = N_M_step(step=i,over_sample_points=i, mu_phase=0, loop=1)
@@ -135,6 +135,7 @@ for i in n:
     plt.plot((Form[0] - Form_free[0]), label='measurement 1')
     plt.plot((Form[1] - Form_free[0]), label='measurement 2')
     plt.plot((Form[2] - Form_free[0]), label='measurement 3')
+    plt.plot((Form[3] - Form_free[0]), label='measurement 4')
     plt.plot(np.arange(0,720,1),np.zeros([720]),'k--')
 
     plt.title('Form error for {}+{}-step algorithms'.format(i,i))
