@@ -104,7 +104,7 @@ plt.tight_layout()
 plt.savefig('Images/ppt-picture/5+1', bbox_inches='tight')
 plt.show(block=1)
 # %%
-form = np.random.normal(0, 0.3, size=(720, 720))
+form = np.random.normal(0, .3, size=(720, 720))
 fig = plt.figure(figsize=(10,10))
 ax = plt.axes(projection='3d')
 x = np.linspace(0, 720, 720)
@@ -122,14 +122,17 @@ ax.set_zticks([-10,-5,0,5,10],fontsize=13)
 ax.grid(False)
 
 position=fig.add_axes([0.15,0.35,0.015,0.3])
-fig.colorbar(p,fraction=0.03,cax=position)
-ax.w_xaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
-ax.w_yaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
-ax.w_zaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
-ax.view_init (elev=22.5, azim=-45)
+cbar=fig.colorbar(p,fraction=.035,cax=position)
+
+#ax.w_xaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+#ax.w_yaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+#ax.w_zaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+ax._axis3don = False
+
+ax.view_init (elev=45, azim=45)
 plt.tight_layout()
 
-plt.savefig('Images/ppt-picture/shot_noise', bbox_inches='tight')
+#plt.savefig('Images/ppt-picture/shot_noise', bbox_inches='tight')
 plt.show(block=1)
 
 # %% 3+2
