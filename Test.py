@@ -149,5 +149,5 @@ plt.gca().add_patch(a2)
 plt.text(kwx/2,.3,r'$kW_1(x,y)$',fontsize=10,verticalalignment="center",horizontalalignment="center")
 
 plt.tight_layout()
-plt.savefig('Images/ppt-picture/3+2-sampling', bbox_inches='tight')
+#plt.savefig('Images/ppt-picture/3+2-sampling', bbox_inches='tight')
 plt.show(block=1)
