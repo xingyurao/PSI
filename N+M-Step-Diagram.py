@@ -40,18 +40,18 @@ N = np.append(np.array([3]), np.arange(5, 11, 1))
 std_NN = np.array([])
 std_2N = np.array([])
 for i in N:
-    _, std_nn = N_M_step(step=i, over_sample_points=i)
+    _, std_nn = N_M_step(step=i, over_sample_points=i,loop=100)
     std_NN = np.append(std_NN, np.nanmean(outlier_delete(std_nn)))
-    _, std_2n = n_step(step=i * 2)
+    _, std_2n = n_step(step=i * 2,loop=100)
     std_2N = np.append(std_2N, np.nanmean(outlier_delete(std_2n)))
 
 plt.style.use('scientific')
-plt.figure()
+plt.figure(figsize=(8,6))
 factor = 530 / (4 * np.pi)
 plt.loglog(N * 2, std_2N, 'k-', label='2N sampling interferograms', zorder=1)
 plt.scatter(N * 2, std_NN, color='blue', label='N+N sampling interferograms', edgecolors='blue', zorder=2)
-plt.scatter(np.array([8]), np.array([np.sqrt(3 / 2 / 8) * factor * 5 * np.pi / 180]), color='white', marker='o',
-            edgecolors='k', zorder=2)
+#plt.scatter(np.array([8]), np.array([np.sqrt(3 / 2 / 8) * factor * 5 * np.pi / 180]), color='white', marker='o',
+#            edgecolors='k', zorder=2)
 
 plt.xlabel('Number of sampling interferograms (2N)')
 plt.ylabel('Standard deviation, nm')
@@ -60,8 +60,8 @@ plt.xticks([6, 10, 12, 14, 16, 18, 20], [r'$6$', r'$10$', r'$12$', r'$14$', r'$1
 plt.xlim(5, 30)
 plt.legend(loc='upper right')
 plt.title('Comparison between 2N and N+N sampling interferograms')
-plt.tight_layout()
-plt.savefig('Images/Positioning Noise/STD/comparison between 2N sampling points and N+N sampling points',
+#plt.tight_layout()
+plt.savefig('Images/Positioning Noise/STD/comparison between 2N sampling points and N+N sampling points(1)',
             bbox_inches='tight')
 plt.show(block=1)
 
@@ -126,6 +126,7 @@ plt.savefig('Images/Positioning Noise/STD/comparison sampling sampling interfero
             bbox_inches='tight')
 plt.show(block=1)
 # %%  form error for [3,4,8,20]-step algorithms
+
 n = [6]
 for i in n:
     Form, _ = n_step(step=i,loop=4)
