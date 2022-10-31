@@ -46,7 +46,7 @@ for i in N:
     std_2N = np.append(std_2N, np.nanmean(outlier_delete(std_2n)))
 
 plt.style.use('scientific')
-plt.figure(figsize=(8,6))
+plt.figure()
 factor = 530 / (4 * np.pi)
 plt.loglog(N * 2, std_2N, 'k-', label='2N sampling interferograms', zorder=1)
 plt.scatter(N * 2, std_NN, color='blue', label='N+N sampling interferograms', edgecolors='blue', zorder=2)
@@ -60,7 +60,7 @@ plt.xticks([6, 10, 12, 14, 16, 18, 20], [r'$6$', r'$10$', r'$12$', r'$14$', r'$1
 plt.xlim(5, 30)
 plt.legend(loc='upper right')
 plt.title('Comparison between 2N and N+N sampling interferograms')
-#plt.tight_layout()
+plt.tight_layout()
 plt.savefig('Images/Positioning Noise/STD/comparison between 2N sampling points and N+N sampling points(1)',
             bbox_inches='tight')
 plt.show(block=1)
