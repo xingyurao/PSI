@@ -126,7 +126,6 @@ plt.savefig('Images/Positioning Noise/STD/comparison sampling sampling interfero
             bbox_inches='tight')
 plt.show(block=1)
 # %%  form error for [3,4,8,20]-step algorithms
-
 n = [6]
 for i in n:
     Form, _ = n_step(step=i,loop=4)
