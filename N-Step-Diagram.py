@@ -6,7 +6,6 @@
 
 # create bild of comparison with different steps
 import matplotlib.pyplot as plt
-import numpy as np
 
 from PSI_algorithms.N_Step import *
 from PSI_algorithms.Data_Process import *
@@ -22,17 +21,17 @@ _, m_std_20 = n_step(step=20, phase=phase_interval)
 # create the graph
 plt.style.use('scientific')
 fig = plt.figure()
-plt.plot(m_std_3, label='3-sampling interferograms', color='green')
-plt.plot((n_Step_theoretical_std(step=3)), 'k--')
+plt.plot(m_std_3, label='3-sampling', color='green')
+# plt.plot((n_Step_theoretical_std(step=3)), 'k--')
 
-plt.plot(m_std_4, label='4-sampling interferograms', color='blue')
-plt.plot((n_Step_theoretical_std(step=4)), 'k--')
+plt.plot(m_std_4, label='4-sampling', color='blue')
+# plt.plot((n_Step_theoretical_std(step=4)), 'k--')
 
-plt.plot(m_std_8, label='8-sampling interferogramss', color='red')
-plt.plot((n_Step_theoretical_std(step=8)), 'k--')
+plt.plot(m_std_8, label='8-sampling', color='red')
+# plt.plot((n_Step_theoretical_std(step=8)), 'k--')
 
-plt.plot(m_std_20, label='20-sampling interferograms', color='yellow')
-plt.plot((n_Step_theoretical_std(step=20)), 'k--')
+plt.plot(m_std_20, label='20-sampling', color='yellow')
+# plt.plot((n_Step_theoretical_std(step=20)), 'k--')
 
 plt.title('Comparison among different number of sampling interferograms')
 plt.xlabel('Start phase')
@@ -41,7 +40,7 @@ plt.xlim(0, 720)
 plt.xticks([0, 720 / 4, 720 / 2, 720 / 4 * 3, 720], [r'0', r'$\pi/2$', r'$\pi$', r'$3\pi/2$', r'$2\pi$'])
 plt.legend(loc='upper right')
 plt.tight_layout()
-plt.savefig('Images/Positioning Noise/STD/Comparison among different number of sampling Interferograms',
+plt.savefig('Images/Positioning Noise/STD/Comparison among different number of sampling Interferograms(1)',
             bbox_inches='tight')
 plt.show(block=True)
 
@@ -72,19 +71,19 @@ plt.savefig('Images/Positioning Noise/STD/standard deviation vs number of sampli
 plt.show(block=1)
 
 # %%  form error for [3,4,8,20]-step algorithms
-n = [12]
+n = [4]
 for i in n:
     Form, _ = n_step(step=i,loop=4)
     Form_free, _ = n_step(step=i, mu_phase=0, loop=1)
     plt.style.use('scientific')
-    plt.figure()
+    plt.figure(figsize=(8,5))
     plt.plot(outlier_delete(Form[0] - Form_free[0]), label='measurement 1')
     plt.plot(outlier_delete(Form[1] - Form_free[0]), label='measurement 2')
     plt.plot(outlier_delete(Form[2] - Form_free[0]), label='measurement 3')
     plt.plot(outlier_delete(Form[3] - Form_free[0]), label='measurement 4')
     plt.plot(np.arange(0,720,1),np.zeros([720]),'k--')
 
-    plt.title('Form error for {}-step algorithms'.format(i))
+    plt.title('Form error for {}-step algorithms'.format(i),fontsize=16)
     plt.xlabel('Start phase')
     plt.ylabel('Form error, nm')
     plt.xlim(0, 720)
@@ -107,7 +106,7 @@ for i in n:
     plt.plot((Form[1] - Form_free[0]), label='measurement 2')
     plt.plot((Form[2] - Form_free[0]), label='measurement 3')
 
-    plt.title('form error for non-linear algorithms(sampling frequency={})'.format(i))
+    plt.title('form error for non-linear algorithms(sampling frequency={})'.format(i),fontsize=16)
     plt.xlabel('start phase')
     plt.ylabel('measurement error, nm')
     plt.xlim(0, 720)
@@ -121,3 +120,21 @@ for i in n:
     '''
 
     plt.show(block=1)
+#%% 12 Algorithmus
+phase_interval = (0, np.pi * 2)
+_, m_std_12 = n_step(step=12, phase=phase_interval)
+plt.style.use('scientific')
+fig = plt.figure()
+plt.plot(m_std_12, label='12-sampling', color='k')
+plt.title('N=12')
+plt.xlabel('Start phase')
+plt.ylabel('Standard deviation, nm')
+plt.xlim(0, 720)
+plt.ylim(1.0,1.5)
+plt.xticks([0, 720 / 4, 720 / 2, 720 / 4 * 3, 720], [r'0', r'$\pi/2$', r'$\pi$', r'$3\pi/2$', r'$2\pi$'])
+#plt.legend(loc='upper right')
+plt.tight_layout()
+plt.savefig('Images/Positioning Noise/STD/N=12',
+            bbox_inches='tight')
+plt.show(block=True)
+
