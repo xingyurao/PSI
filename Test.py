@@ -157,80 +157,40 @@ plt.show(block=1)
 # %% write a data for test of .c of c language
 import numpy as np
 import matplotlib.pyplot as plt
-from datetime import datetime
-import PSI_algorithms.unwrap as unwrap
+
+from PSI_algorithms.unwrap import unwrap
 
 # slope-along x-axis
+data = np.zeros([1000, 3])
 slope = -5
 lamda = 530
 factor = lamda / (2 * np.pi)
 a = 0
 b = 1
-data = np.linspace(0, 1000 * slope, 1000)
+for n in np.arange(0, 1000, 1):
+    data[n, :] = data[n, :] + n * slope
+
+
 bild_1 = a + b * np.cos(data / factor + np.pi * 0 / 2)
 bild_2 = a + b * np.cos(data / factor + np.pi * 1 / 2)
 bild_3 = a + b * np.cos(data / factor + np.pi * 2 / 2)
 bild_4 = a + b * np.cos(data / factor + np.pi * 3 / 2)
-bild_all = np.zeros([2, 1000])
-bild_all[0] = bild_4
-bild_all[1] = bild_1
-image = np.arctan((bild_4 - bild_2) / (bild_1 - bild_3))
+
 # np.savetxt('C:/Users/Administrator/Desktop/C_Test/data.txt', np.float32(bild_all.T), fmt='%f', delimiter=',')
 
 # test for unwrapping
-sin = bild_all[0]
-cos = bild_all[1]
+sin = bild_4
+cos = bild_1
 
-'''
-k = 0
-new_data = np.array([])
-# get the value of arctan
-for i in np.arange(0, 1000, 1):
-    if (sin[i] > 0 and cos[i] > 0) or (sin[i] < 0 and cos[i] > 0):
-        new_data = np.append(new_data, np.arctan(sin[i] / cos[i]) + k * np.pi)
-    elif sin[i] > 0 and cos[i] < 0:
-        new_data = np.append(new_data, np.pi + np.arctan(sin[i] / cos[i]) + k * np.pi)
-    elif sin[i] < 0 and cos[i] < 0:
-        new_data = np.append(new_data, - np.pi + np.arctan(sin[i] / cos[i]) + k * np.pi)
-    elif sin[i] > 0 and np.isclose(cos[i], 0):
-        new_data = np.append(new_data, np.pi / 2 + k * np.pi)
-    elif np.isclose(sin[i], 0) and cos[i] < 0:
-        new_data = np.append(new_data, np.pi + k * np.pi)
-    elif sin[i] < 0 and np.isclose(cos[i], 0):
-        new_data = np.append(new_data, 3 * np.pi / 2 + k * np.pi)
-    elif np.isclose(sin[i], 0) and cos[i] > 0:
-        new_data = np.append(new_data, 0 + k * np.pi)
-    else:
-        print('error')
-'''
-'''
-time=datetime.now()
-# get the value of arctan
-new_data = np.array([])
-for i in np.arange(0, 1000, 1):
-    if sin[i] > 0 and np.isclose(cos[i], 0):
-        new_data = np.append(new_data, np.pi / 2)
-    elif sin[i] < 0 and np.isclose(cos[i], 0):
-        new_data = np.append(new_data,  -np.pi / 2)
-    else:
-        new_data = np.append(new_data, np.arctan(sin[i] / cos[i]))
-# unwrap for more than pi value
-for i in np.arange(0,1000-1,1):
-    delta=new_data[i+1]-new_data[i]
-    new_data[i+1]=new_data[i] + (delta-np.pi*round(delta/np.pi))
-
-print(datetime.now()-time)
-
-'''
-new_data = unwrap(sin=sin, cos=cos)
+new_data = unwrap(sin=sin.T, cos=cos.T)
 
 plt.figure()
 plt.subplot(411)
-plt.plot(sin)
+plt.plot(sin[:,0])
 plt.subplot(412)
-plt.plot(cos)
+plt.plot(cos[:,0])
 plt.subplot(413)
-plt.plot(image)
+plt.plot((sin/cos)[:,0])
 plt.subplot(414)
-plt.plot(new_data * factor)
+plt.plot((new_data * factor)[0])
 plt.show(block=1)
